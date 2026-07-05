@@ -1,0 +1,30 @@
+# LaTeX build artifacts
+*.aux
+*.bbl
+*.blg
+*.fdb_latexmk
+*.fls
+*.lof
+*.log
+*.lot
+*.out
+*.synctex.gz
+*.toc
+main.pdf
+
+# Private or bulky modeling artifacts intentionally excluded
+data/
+comsol/
+models/
+*.mph
+*.mphbin
+*.pkl
+*.joblib
+*.h5
+*.zip
+*.7z
+*.rar
+
+# OS/editor artifacts
+.DS_Store
+Thumbs.db

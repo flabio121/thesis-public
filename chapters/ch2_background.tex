@@ -1,0 +1,176 @@
+\chapter{Physical Model Requirements}
+
+\section{Why PSCs Need Mechanistic Models}
+
+Stability assessment for PSCs is difficult because degradation depends on
+device architecture, stress protocol, preconditioning, and measurement history.
+The ISOS consensus work formalized how stability tests should be reported, but
+standardized testing does not remove the need for mechanism-aware models
+\cite{Khenkin_2020}. A useful model must connect an observed electrical change
+to a plausible internal cause without hiding uncertainty.
+
+Drift-diffusion modeling is the natural starting point because it represents
+carrier generation, recombination, transport, and electrostatics in the device
+stack. Recent PSC modeling reviews emphasize that these models remain valuable
+when assumptions are explicit and when electronic and ionic degrees of freedom
+are not confused \cite{Singh_2025}. COMSOL is used here as the finite-element
+environment for that device model, not as a black box.
+
+\section{p-i-n Device Operation and J--V Observables}
+
+The laboratory device is an inverted p-i-n architecture. Light enters through
+the glass/ITO side, followed by the p-selective NiO$_x$/MeO-2PACz contact,
+the nominally intrinsic metal-halide perovskite absorber, the n-selective
+C$_{60}$/BCP contact, and the Ag electrode. Photons absorbed in the
+perovskite generate electron--hole pairs. Holes are extracted toward
+NiO$_x$/MeO-2PACz and ITO, while electrons are extracted toward C$_{60}$/BCP
+and Ag.
+
+The measured J--V curve compresses several physical processes into four common
+metrics. The short-circuit current density $J_{sc}$ is most sensitive to
+absorption and carrier collection. The open-circuit voltage $V_{oc}$ is
+strongly constrained by recombination and energetic alignment. Fill factor
+responds to recombination, transport barriers, series resistance, and shunt
+leakage. PCE combines all three:
+\begin{equation}
+\mathrm{PCE}=\frac{V_{oc}J_{sc}\mathrm{FF}}{P_{\mathrm{in}}}.
+\end{equation}
+Because different internal changes can produce similar metric changes, the
+full curve shape, scan direction, scan rate, and measurement history are
+required for mechanism-aware interpretation.
+
+\section{Electronic Transport Equations}
+
+The electronic device physics are governed by Poisson electrostatics, carrier
+continuity, and electron and hole current-density relations. The electric
+potential $\phi$ defines the electric field
+\begin{equation}
+\mathbf{E}=-\nabla \phi .
+\end{equation}
+The electron and hole current densities are written as
+\begin{align}
+\mathbf{J}_n &= q\mu_n n\mathbf{E} + qD_n\nabla n,\\
+\mathbf{J}_p &= q\mu_p p\mathbf{E} - qD_p\nabla p,
+\end{align}
+where $q$ is the elementary charge, $n$ and $p$ are electron and hole
+concentrations, $\mu_n$ and $\mu_p$ are mobilities, and $D_n$ and $D_p$ are
+diffusion coefficients. The drift terms follow the force on mobile charges
+under $\mathbf{E}$, while the diffusion terms follow concentration gradients.
+The opposite signs in the diffusion terms reflect the charge sign convention
+for electrons and holes.
+
+Carrier conservation is represented by
+\begin{align}
+\frac{\partial n}{\partial t}
+&= \frac{1}{q}\nabla\cdot \mathbf{J}_n + G - R,\\
+\frac{\partial p}{\partial t}
+&= -\frac{1}{q}\nabla\cdot \mathbf{J}_p + G - R,
+\end{align}
+where $G$ is photogeneration and $R$ is the total recombination rate. The
+different signs in the divergence terms follow from the definitions of
+electron and hole conventional current.
+
+Electrostatics is coupled through Poisson's equation:
+\begin{equation}
+\nabla\cdot(\epsilon\nabla\phi)
+= -q\left(p-n+N_D^+-N_A^-+\frac{\rho_{\mathrm{ion}}}{q}\right).
+\label{eq:poisson}
+\end{equation}
+Here $\epsilon$ is the permittivity, $N_D^+$ and $N_A^-$ are ionized donor and
+acceptor densities, and $\rho_{\mathrm{ion}}$ is the mobile-ion space-charge
+density in C/m$^3$. The expression $\rho_{\mathrm{ion}}/q$ converts ionic
+charge density into an equivalent signed number density before multiplication
+by $q$.
+
+\section{Generation and Recombination Terms}
+
+Illumination enters the Semiconductor Module as a volumetric electron-hole pair
+generation rate $G$ in the perovskite absorber. The optical field is not solved
+with a Wave Optics interface. Instead, the model uses an algebraic
+Beer--Lambert generation profile that supplies a spatially varying source term
+to the semiconductor equations. The photon flux entering the absorber is
+represented as
+\begin{equation}
+\Phi(x)=\Phi_0 e^{-\alpha x},
+\end{equation}
+where $\Phi_0$ is the incident photon flux at the illuminated side of the
+absorber, $\alpha$ is an effective absorption coefficient, and $x$ is the local
+depth coordinate in the perovskite. The corresponding generation profile is
+proportional to the decaying photon flux and is normalized so that the
+absorber-averaged generation remains controlled. This approach preserves a
+depth-dependent generation shape without requiring a full optical transfer
+matrix. It does not resolve wavelength-dependent absorption, parasitic
+absorption in transport layers, interference effects, or optical reflection.
+
+The total electronic recombination rate can be organized as
+\begin{equation}
+R = R_{\mathrm{rad}}+R_{\mathrm{SRH}}+R_{\mathrm{Auger}}.
+\end{equation}
+Direct or bimolecular radiative recombination is represented by
+\begin{equation}
+R_{\mathrm{rad}}=B\left(np-n_i^2\right),
+\end{equation}
+where $B$ is the radiative recombination coefficient. Auger recombination can
+be written as
+\begin{equation}
+R_{\mathrm{Auger}}=
+\left(C_n n+C_p p\right)\left(np-n_i^2\right),
+\end{equation}
+where $C_n$ and $C_p$ are electron- and hole-assisted Auger coefficients.
+Radiative and Auger terms define the complete recombination hierarchy presented
+for the device physics, but the current degradation implementation is
+calibrated primarily through SRH recombination. Future quantitative use of
+$B$, $C_n$, and $C_p$ requires architecture-specific transient or
+photoluminescence calibration.
+
+Trap-assisted recombination is represented with the Shockley--Read--Hall (SRH)
+form
+\begin{equation}
+R_{\mathrm{SRH}} =
+\frac{np-n_i^2}
+{\tau_p(n+n_1)+\tau_n(p+p_1)}.
+\label{eq:srh}
+\end{equation}
+The carrier lifetimes depend on trap density:
+\begin{align}
+\tau_n &= \frac{1}{\sigma_n v_{\mathrm{th}} N_t},\\
+\tau_p &= \frac{1}{\sigma_p v_{\mathrm{th}} N_t},
+\end{align}
+where $\sigma_n$ and $\sigma_p$ are capture cross sections, $v_{\mathrm{th}}$
+is thermal velocity, and $N_t$ is trap density. Increasing $N_t$ reduces
+carrier lifetime, increases nonradiative recombination, lowers $V_{oc}$, and
+can reduce fill factor or $J_{sc}$ when recombination becomes strong.
+
+\section{Hysteresis as a Modeling Requirement}
+
+J--V hysteresis is an observable result of coupling among mobile ions, internal
+electric fields, recombination, and voltage protocol. Huang et al. showed that
+dielectric properties and scan rate can strongly affect PSC hysteresis, and
+their time-dependent ion-migration model links those effects to built-in field
+changes \cite{Huang_2022}. Wang et al. further argued that hysteresis can be
+used diagnostically because evolving ion-induced fields interact with carrier
+transport and recombination \cite{WangNatComm_2024}.
+
+A model that only produces one steady J--V curve at one scan rate cannot test
+whether the internal state is physically credible. Slower scans allow ionic
+states to respond more fully; faster scans probe a more frozen internal state.
+Agreement across scan protocols is therefore a stronger model-quality test than
+agreement at one operating point.
+
+\section{Model Requirements}
+
+The COMSOL model uses the following requirements:
+\begin{enumerate}
+\item The device stack and contacts must be explicit enough for comparison to
+laboratory samples.
+\item Voltage protocol variables must be treated as controlled inputs, not as
+hidden physics.
+\item Internal material and degradation states must be represented as model
+parameters or state variables, not inferred from PCE alone.
+\item Mobile-ion redistribution must enter Poisson electrostatics through a
+charge-density term with consistent units.
+\item Degradation variables must map to COMSOL-accessible quantities such as
+$N_t$, $R_s$, $R_{sh}$, surface recombination, and photogeneration.
+\item Model claims must be limited to the parameter range, stress protocol, and
+calibration state actually simulated.
+\end{enumerate}

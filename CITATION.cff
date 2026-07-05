@@ -1,0 +1,12 @@
+cff-version: 1.2.0
+title: Public Thesis Repository for Perovskite Solar Cell Degradation Modeling
+message: If you use this public thesis repository, please cite the thesis document.
+type: report
+authors:
+  - family-names: Tippin
+    given-names: Favian
+repository-code: https://github.com/flabio121/thesis-public
+url: https://raw.githubusercontent.com/flabio121/thesis-public/main/docs/Favian_Tippin_Thesis.pdf
+abstract: >
+  Public thesis PDF and minimal rebuild source for a COMSOL-first perovskite
+  solar cell degradation modeling thesis.

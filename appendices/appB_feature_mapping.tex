@@ -1,0 +1,33 @@
+\chapter{Observable and Mechanism Mapping}
+
+This appendix records how measured or simulated observables constrain the
+COMSOL model states. The mapping is not one-to-one; it identifies which
+measurements are most useful for each physical mechanism.
+
+\begin{table}[H]
+\centering
+\begin{tabular}{p{0.22\textwidth}p{0.34\textwidth}p{0.32\textwidth}}
+\toprule
+Observable & Primary sensitivity & COMSOL use \\
+\midrule
+Normalized PCE & aggregate performance loss & aging trajectory and $T_{80}$ marker \\
+$V_{oc}$ & recombination and electrostatic shifts & trap density, surface recombination, and charge calibration \\
+$J_{sc}$ & collection and absorber-quality changes & photogeneration, collection, and strong recombination check \\
+FF & leakage, shunting, contact, and curve-shape losses & $R_s$, $R_{sh}$, and interface-loss calibration \\
+$V_{mpp}$, $J_{mpp}$ & operating-point shift & maximum-power-point and deployment relevance \\
+Hysteresis index & mobile ions and field redistribution & $c_{\mathrm{ion},0}$, $\mu_{\mathrm{ion}}$, and boundary-condition calibration \\
+PL peak shift & composition and bandgap change & absorber-state and photogeneration-loss constraint \\
+PL spread & spatial heterogeneity & check against the one-dimensional uniformity assumption \\
+XRD phase fraction & composition or secondary phases & absorber degradation and phase-segregation constraint \\
+Impedance or transient current & ions, capacitance, and interface dynamics & ion mobility, ion density, and interface-state calibration \\
+\bottomrule
+\end{tabular}
+\caption{Observation mapping for COMSOL degradation calibration.}
+\label{tab:feature_state_mapping}
+\end{table}
+
+The table defines calibration targets rather than fitted proof. Terminal J--V
+data are necessary but not sufficient because several mechanisms can produce
+similar PCE loss. Hysteresis, impedance, transient current, PL, and XRD
+measurements provide additional constraints that help separate ionic,
+recombination, contact, leakage, and absorber-quality changes.

@@ -1,0 +1,215 @@
+\chapter{Degradation-State Mappings}
+
+\section{Purpose of Damage-State Variables}
+
+The COMSOL model uses damage-state variables to connect slow physical changes
+to parameters that the Semiconductor Module and Electrical Circuit interface can
+use. Each state is dimensionless and bounded. A value of 0 represents the
+baseline condition for that mechanism, and a value of 1 represents the selected
+maximum severity for the simulated study. The bounded form prevents a numerical
+damage variable from growing without physical interpretation.
+
+The model maps latent degradation states onto COMSOL-accessible parameters such
+as trap density, ionic charge, series resistance, shunt resistance, surface
+recombination, and photogeneration. These mappings are not a substitute for
+calibration. They define testable hypotheses about which physical mechanism
+produces which J--V signature.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{figures/pptx_ai/degradation_implementation_graphic.png}
+\caption[COMSOL degradation implementation concept.]{COMSOL degradation implementation concept. Stressors drive slow damage-state evolution; damage states map to trap density, surface recombination, series resistance, shunt resistance, and effective generation; the updated parameters are then used in fast J--V simulations to produce mechanism-specific performance loss.}
+\label{fig:degradation_implementation_graphic}
+\end{figure}
+
+\section{Trap Degradation State}
+
+Trap growth is motivated by defect formation, interfacial disorder, ion-driven
+chemical change, and absorber damage. The model can represent trap degradation
+either as a spatial PDE $D_{\mathrm{trap}}(x,t)$ in the perovskite domain or as
+a lumped global ODE when spatial resolution is not identifiable. The spatial
+form is
+\begin{equation}
+\frac{\partial D_{\mathrm{trap}}}{\partial t}
+= k_{\mathrm{trap}} f_{\mathrm{stress}} f_{\mathrm{ion}}
+\left(1-D_{\mathrm{trap}}\right)
+- k_{\mathrm{heal}} f_{\mathrm{rest}}D_{\mathrm{trap}}.
+\label{eq:dtrap}
+\end{equation}
+The dependent variable is dimensionless, so the source terms must have units of
+1/s. The rate constant $k_{\mathrm{trap}}$ has units of 1/s when
+$f_{\mathrm{stress}}$ and $f_{\mathrm{ion}}$ are dimensionless multipliers.
+The healing term is optional and is used only when recovery during rest is
+being tested.
+
+The trap state maps to an effective trap density through either a bounded
+linear interpolation,
+\begin{equation}
+N_{t,\mathrm{eff}} =
+N_{t0} + (N_{t,\max}-N_{t0})D_{\mathrm{trap}},
+\label{eq:nt_linear}
+\end{equation}
+or a multiplicative form,
+\begin{equation}
+N_{t,\mathrm{eff}} =
+N_{t0}\left(1+a_{Nt}D_{\mathrm{trap}}\right).
+\label{eq:nt_mult}
+\end{equation}
+Both forms preserve units of m$^{-3}$ or cm$^{-3}$ depending on the COMSOL
+parameter convention. The parameter $N_{t,\max}$, or equivalently $a_{Nt}$,
+sets the physical severity. A saturated damage state at
+$D_{\mathrm{trap}}=1$ therefore means that the selected maximum trap density
+has been reached, not that the material contains every possible defect.
+
+In the J--V response, increased $N_t$ shortens SRH lifetimes, increases
+nonradiative recombination, lowers $V_{oc}$, and can reduce FF or $J_{sc}$ if
+carrier collection becomes recombination-limited. The spatial form can localize
+trap growth near interfaces where $u_{\mathrm{ion}}$ or
+$\nabla u_{\mathrm{ion}}$ is large. The limitation is that the ion--trap
+coupling function $f_{\mathrm{ion}}$ is not unique from J--V data alone and
+requires calibration with ion-sensitive or defect-sensitive measurements.
+
+\section{SRH Recombination Coupling}
+
+The SRH recombination expression connects the trap mapping to electronic
+transport:
+\begin{equation}
+R_{\mathrm{SRH}} =
+\frac{np-n_i^2}
+{\tau_p(n+n_1)+\tau_n(p+p_1)}.
+\end{equation}
+The lifetimes are
+\begin{align}
+\tau_n &= \frac{1}{\sigma_n v_{\mathrm{th}} N_{t,\mathrm{eff}}},\\
+\tau_p &= \frac{1}{\sigma_p v_{\mathrm{th}} N_{t,\mathrm{eff}}}.
+\end{align}
+The units are consistent because $\sigma$ has units of m$^2$,
+$v_{\mathrm{th}}$ has units of m/s, and $N_t$ has units of m$^{-3}$, so
+$\sigma v_{\mathrm{th}}N_t$ has units of 1/s. As
+$N_{t,\mathrm{eff}}$ increases, both lifetimes decrease and
+$R_{\mathrm{SRH}}$ increases for a given carrier population. This is the
+physical path from trap degradation to lower voltage and stronger nonradiative
+loss.
+
+\section{Contact Resistance}
+
+Contact resistance represents voltage loss at the metal or transport-layer
+contact. In this model it is associated with the rear Ag contact boundary or an
+equivalent circuit element. The area-normalized form is
+\begin{equation}
+V_{\mathrm{terminal}} =
+V_{\mathrm{device}} + J R_{s,A},
+\label{eq:rs_area}
+\end{equation}
+where $J$ is current density and $R_{s,A}$ has units of $\Omega\,\mathrm{m^2}$.
+If a total current $I$ and device area $A$ are used instead, the equivalent
+relation is
+\begin{equation}
+V_{\mathrm{terminal}} =
+V_{\mathrm{device}} + J A R_s.
+\end{equation}
+
+The degradation mapping is
+\begin{equation}
+R_{s,\mathrm{eff}} =
+R_{s0}\left(1+a_{Rs}D_{Rs}\right).
+\label{eq:rs_deg}
+\end{equation}
+Increasing $R_s$ primarily rounds the high-forward-bias J--V knee and lowers
+fill factor. It has little direct effect on $V_{oc}$ because the terminal
+current is near zero at open circuit. The COMSOL interpretation is lumped
+contact or interfacial voltage loss, not a spatially resolved chemical reaction
+at the Ag boundary.
+
+If light-soaking or contact activation is included, conditioning can reduce the
+effective series resistance:
+\begin{equation}
+R_{s,\mathrm{eff}} =
+\frac{R_{s0}\left(1+a_{Rs}D_{Rs}\right)}
+{1+a_{\mathrm{cond}}D_{\mathrm{cond}}}.
+\label{eq:rs_cond}
+\end{equation}
+The denominator represents beneficial extraction or contact activation. This
+term is proposed for future calibration and is not treated as validated in the
+present results.
+
+\section{Shunt Resistance}
+
+Shunting is represented as a leakage pathway in parallel with the photovoltaic
+device. In area-normalized form,
+\begin{equation}
+J_{\mathrm{sh}} = \frac{V}{R_{sh,A}},
+\label{eq:jsh}
+\end{equation}
+where $R_{sh,A}$ has units of $\Omega\,\mathrm{m^2}$. Equivalently, the model
+can use a shunt conductance
+\begin{equation}
+G_{sh,\mathrm{eff}}=
+G_{sh0}+\Delta G_{sh}D_{Rsh}.
+\end{equation}
+The resistance mapping can be written as
+\begin{equation}
+R_{sh,\mathrm{eff}} =
+\frac{R_{sh0}}{1+a_{Rsh}D_{Rsh}}.
+\label{eq:rsh_deg}
+\end{equation}
+
+Decreasing $R_{sh}$ increases leakage current near short circuit and changes
+the low-voltage slope of the J--V curve. The usual signatures are FF loss and,
+when leakage is strong enough, reduced $V_{oc}$. Because this effect is
+introduced through a circuit-equivalent pathway, it is interpreted as lumped
+leakage rather than a spatially resolved pinhole or defect filament.
+
+\section{Surface Recombination and Photogeneration Loss}
+
+Surface recombination is represented by an interface recombination velocity
+$S$, with units of m/s. Increasing $S$ raises interface recombination and can
+lower $V_{oc}$ and FF when interface carrier concentrations are high. The
+mapping has the same bounded structure:
+\begin{equation}
+S_{\mathrm{eff}}=S_0\left(1+a_S D_S\right).
+\end{equation}
+The limitation is observability: terminal J--V data may not separate surface
+recombination from bulk trap recombination without additional observables.
+
+Photogeneration loss can be represented by reducing the absorber generation
+rate:
+\begin{equation}
+G_{\mathrm{eff}}=G_0\left(1-a_GD_G\right).
+\end{equation}
+This mapping is useful for testing absorber damage or optical loss. Its
+primary J--V signature is reduced $J_{sc}$, with secondary effects on PCE and
+possibly FF. It should not be used to represent recombination loss unless
+independent optical or quantum-efficiency evidence supports that choice.
+
+\section{Light Soaking and Self-Healing}
+
+PSCs can show beneficial conditioning under illumination and partial recovery
+after rest. Light soaking can improve extraction or contact behavior, often
+appearing as higher FF and sometimes higher PCE. Self-healing can occur through
+ion redistribution, trap relaxation, and contact or interfacial
+re-equilibration after stress is removed.
+
+A proposed conditioning state is
+\begin{equation}
+\frac{dD_{\mathrm{cond}}}{dt}
+= k_{\mathrm{cond}}f_{\mathrm{light}}f_T
+\left(1-D_{\mathrm{cond}}\right)
+- k_{\mathrm{relax}}D_{\mathrm{cond}}.
+\label{eq:dcond}
+\end{equation}
+The state is dimensionless, so $k_{\mathrm{cond}}$ and $k_{\mathrm{relax}}$
+have units of 1/s when the multipliers are dimensionless. The proposed mapping
+to series resistance is Eq.~\ref{eq:rs_cond}.
+
+Optional trap healing can be represented by the negative term in
+Eq.~\ref{eq:dtrap}:
+\begin{equation}
+\frac{dD_{\mathrm{trap}}}{dt}
+= k_{\mathrm{trap}}f_{\mathrm{stress}}
+\left(1-D_{\mathrm{trap}}\right)
+- k_{\mathrm{heal}}f_{\mathrm{rest}}D_{\mathrm{trap}}.
+\end{equation}
+These terms are physically motivated, but they are not fully validated in the
+present COMSOL model. They remain future implementation targets that require
+controlled light-soaking and rest-recovery data.

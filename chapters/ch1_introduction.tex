@@ -1,0 +1,111 @@
+\chapter{Introduction and Scope}
+
+\section{Motivation}
+
+Perovskite solar cells (PSCs) have reached efficiencies that justify serious
+reliability and manufacturing work, but their degradation remains difficult to
+diagnose from terminal electrical measurements alone
+\cite{Green_2024,Silverman_2025}. A measured change in J--V shape can result
+from mobile-ion redistribution, trap-assisted recombination, transport-layer
+electrostatics, surface recombination, shunting, contact resistance, or several
+of these mechanisms at the same time. A power-conversion-efficiency (PCE)
+trajectory is useful, but it is not by itself a mechanism.
+
+Solar cells convert absorbed photons into electrical current by generating
+electron--hole pairs, separating those carriers through internal fields and
+selective contacts, and collecting them at electrodes. In a perovskite solar
+cell, the absorber is a metal-halide semiconductor with the general
+$ABX_3$ perovskite crystal structure. Its composition can be adjusted to tune
+band gap, absorption, transport, and stability. Compared with crystalline
+silicon, perovskites offer strong absorption in thin films, low-temperature
+processing potential, lightweight or flexible form factors, and tandem-cell
+opportunities. Their central limitation is operational durability under
+illumination, heat, electrical bias, moisture, oxygen, and coupled
+interface/electrode reactions.
+
+This thesis develops a COMSOL-based model that connects measurable J--V
+behavior to hidden internal mechanisms in a one-dimensional PSC stack. The
+model combines semiconductor drift-diffusion, Poisson electrostatics, a
+mobile-ion transport equation, damage-state variables, and electrical
+resistance mappings. The goal is not to fit one degradation curve with an
+empirical trend. The goal is to build a device model whose geometry,
+parameters, voltage protocol, internal state variables, and outputs can be
+inspected and challenged against physical expectations.
+
+\section{Research Objective}
+
+The objective is to develop a physics-based COMSOL framework for PSC
+degradation analysis. The framework links observable J--V behavior to
+model-internal quantities such as mobile-ion redistribution, trap growth,
+contact degradation, and shunt leakage. It is designed for calibration against
+experimental J--V, aging, impedance, transient-current, and optical data, but
+the thesis claims are limited to the COMSOL model and the simulation results
+available in this repository.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{figures/pptx_ai/comsol_methodology_workflow.png}
+\caption{COMSOL-centered modeling workflow used to connect a pristine drift-diffusion PSC model, experimental characterization, parameter calibration, mobile-ion and degradation physics, and predicted J--V, hysteresis, and aging behavior. The workflow is iterative because calibration targets constrain both the electronic baseline and the degradation-state mappings.}
+\label{fig:comsol_methodology_workflow}
+\end{figure}
+
+\section{Thesis Contributions}
+
+The first contribution is a COMSOL device model based on a one-dimensional
+reduction of the laboratory p-i-n stack. From the illuminated substrate side,
+the physical architecture is
+\begin{equation}
+\mathrm{glass}/\mathrm{ITO}/\mathrm{NiO}_x/
+\mathrm{MeO\mbox{-}2PACz}/\mathrm{MHP}/
+\mathrm{C}_{60}/\mathrm{BCP}/\mathrm{Ag}/
+\mathrm{UV\ resin}/\mathrm{glass}.
+\end{equation}
+The nominal values used in the laboratory description are approximately
+30 nm NiO$_x$, 5 nm MeO-2PACz, 25 nm C$_{60}$, 4 nm BCP, 100 nm Ag, and
+1.1 mm cover glass. The electronic COMSOL geometry combines the two
+hole-selective layers into a 35 nm HTL, combines C$_{60}$ and BCP into a
+29 nm ETL, and uses a 450 nm metal-halide perovskite absorber modeled
+electronically as Cs$_{0.2}$FA$_{0.8}$PbI$_3$. ITO and Ag are contact
+boundaries; glass and UV resin are physical device layers but are not
+electronic transport domains in the present model.
+The Semiconductor Module solves the coupled electronic transport problem, while
+user-defined physics represent mobile-ion redistribution and degradation
+states.
+
+The second contribution is a set of mechanism-specific parameter mappings. The
+model maps latent degradation states onto COMSOL-accessible quantities such as
+trap density, ionic charge density, series resistance, shunt resistance,
+surface recombination, and photogeneration. Each mapping has a physical
+interpretation, a unit check, and a J--V signature.
+
+The third contribution is a voltage-protocol framework for aging and
+hysteresis studies. The model separates the aging bias $V_{\mathrm{stress}}$
+from the measurement voltage $V_{\mathrm{app}}(t)$, so slow degradation and
+fast J--V scanning can be represented on different timescales. Multi-rate
+hysteretic J--V measurements are used as calibration targets for the COMSOL
+degradation framework.
+
+The fourth contribution is a qualitative experimental comparison. The COMSOL
+baseline and accelerated light-plus-heat degradation case are compared against
+laboratory J--V data. The comparison evaluates direction, curve shape, PCE
+loss, fill-factor loss, and calibration gaps rather than claiming absolute
+lifetime prediction.
+
+The fifth contribution is a first architecture-scoped stress grid for future
+surrogate and inverse-model development. The validated one-sun temperature
+J--V sweep quantifies how accelerated aging metrics change from 25 to
+85~$^\circ$C, while the 6 $\times$ 6 light-temperature profile grid records
+spatial summaries of ion, trap, recombination, field, and resistance states.
+These data products do not yet constitute a trained surrogate model, but they
+define the COMSOL export structure needed for one.
+
+\section{Scope Boundaries}
+
+The main thesis stops at the COMSOL model and results. Machine learning,
+surrogate modeling, and latent-state inference are possible uses of the
+architecture-stress data set, but trained models are not presented as main-body
+claims. The final interpretation is therefore intentionally bounded: the COMSOL
+model is a physics-based platform for studying coupled electronic, ionic, and
+degradation behavior; the implementation demonstrates qualitative mechanism
+separation and produces surrogate-ready state summaries; experimental
+calibration remains ongoing.

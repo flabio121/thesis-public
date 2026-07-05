@@ -1,0 +1,81 @@
+\documentclass[12pt]{report}
+
+% --- ASU margins
+\usepackage[
+  left=1.25in,
+  right=1.25in,
+  top=1in,
+  bottom=1in
+]{geometry}
+
+% Font + math (newtx already includes AMS-like symbols; avoid amssymb clash)
+\usepackage{newtxtext,newtxmath}
+
+\usepackage{setspace}
+\doublespacing
+
+\usepackage{amsmath}    % keep amsmath, drop amssymb to avoid \Bbbk conflict
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{hyperref}
+\hypersetup{hypertexnames=false}
+\usepackage{float}      % enables figure/table [H]
+
+% ---- macros used throughout chapters
+\newcommand{\Dmaster}{D_{\mathrm{master}}}
+\newcommand{\xion}{x_{\mathrm{ion}}}
+\newcommand{\xbulk}{x_{\mathrm{bulk}}}
+\newcommand{\xint}{x_{\mathrm{int}}}
+\newcommand{\Vapp}{V_{\mathrm{app}}}
+\newcommand{\Vstress}{V_{\mathrm{stress}}}
+\newcommand{\Pin}{P_{\mathrm{in}}}
+
+\begin{document}
+
+% -------------------------
+% FRONT MATTER
+% -------------------------
+\input{frontmatter/titlepage}
+
+\pagenumbering{roman}
+\setcounter{page}{1}
+
+\input{frontmatter/abstract}
+% Acknowledgements are omitted from this thesis scope.
+
+\tableofcontents
+\listoffigures
+\listoftables
+\input{frontmatter/nomenclature}
+
+% -------------------------
+% MAIN TEXT
+% -------------------------
+\clearpage
+\pagenumbering{arabic}
+
+\input{chapters/ch1_introduction}
+\input{chapters/ch2_background}
+\input{chapters/ch3_comsol_model}
+\input{chapters/ch4_unified_aging_framework}
+\input{chapters/ch5_degradation_knobs}
+\input{chapters/ch6_lifetime_optimization}
+\input{chapters/ch7_simulation_outputs}
+\input{chapters/ch8_conclusion_futurework}
+
+% -------------------------
+% REFERENCES
+% -------------------------
+\bibliographystyle{ieeetr}
+\bibliography{refs}
+
+% -------------------------
+% APPENDICES
+% -------------------------
+\appendix
+\input{appendices/appA_parameters}
+\input{appendices/appB_feature_mapping}
+\input{appendices/appC_hybrid_comsol_workflow}
+
+\end{document}
