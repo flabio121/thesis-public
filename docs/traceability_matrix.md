@@ -14,7 +14,7 @@
 | processed COMSOL tables | `outputs/figures/comsol_mechanism_sensitivity.png` | one-only and leave-one-out comparison |
 | processed COMSOL tables | `outputs/figures/comsol_metric_signatures.png` | mechanism signature figure |
 | processed COMSOL tables | `outputs/figures/comsol_state_trajectories.png` | state/knob evolution figure |
-| thesis presentation architecture | `chapters/ch3_comsol_model.tex` Table `lab_comsol_stack` | laboratory-to-COMSOL architecture mapping |
+| thesis presentation architecture | `chapters/ch3_comsol_model.tex` Table `lab_comsol_stack`; `figures/pptx_ai/psc_architecture_illumination_1d_mapping.png` | laboratory-to-COMSOL architecture mapping, illumination-side convention, and Beer--Lambert generation-domain schematic |
 | verified thesis methods and COMSOL outputs | `journal_submission/main.tex` | concise methodology-and-results manuscript |
 | pending corrected-model exports | labeled placeholders in thesis Chapter 7 and journal manuscript | DIT result slot |
 | `comsol/Traps_JV.txt` | `outputs/figures/comsol_sweeps/traps_jv.*` | trap-density J--V sweep with PCE annotations |
