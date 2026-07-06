@@ -316,6 +316,41 @@ validation predictions, figures, tables, and metadata under
 
 \begin{figure}[H]
 \centering
+\begin{minipage}{0.49\textwidth}
+\centering
+\includegraphics[width=\textwidth]{figures/ml_surrogate/comsol_to_surrogate_workflow_concept.png}
+\end{minipage}\hfill
+\begin{minipage}{0.49\textwidth}
+\centering
+\includegraphics[width=\textwidth]{figures/ml_surrogate/aging_doe_trajectory_concept.png}
+\end{minipage}
+\caption[Conceptual COMSOL-to-ML workflow and design-of-experiments map.]{Conceptual schematics for the COMSOL-to-ML workflow and the
+light-temperature-aging design of experiments. These panels summarize the data
+contract and sampling logic; quantitative validation results are generated
+separately by the reproducible surrogate scripts.}
+\label{fig:ml_concept_workflow_doe}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\begin{minipage}{0.49\textwidth}
+\centering
+\includegraphics[width=\textwidth]{figures/ml_surrogate/forward_surrogate_architecture_concept.png}
+\end{minipage}\hfill
+\begin{minipage}{0.49\textwidth}
+\centering
+\includegraphics[width=\textwidth]{figures/ml_surrogate/inverse_diagnosis_workflow_concept.png}
+\end{minipage}
+\caption[Conceptual forward-surrogate and inverse-diagnosis architecture.]{Conceptual architecture diagrams for the forward COMSOL-trained
+surrogate and the future inverse-diagnosis workflow. The present thesis trains
+and validates the forward lite surrogate only; inverse diagnosis remains a
+planned extension requiring broader COMSOL state labels and experimental
+calibration.}
+\label{fig:ml_concept_forward_inverse}
+\end{figure}
+
+\begin{figure}[H]
+\centering
 \includegraphics[width=\textwidth]{outputs/figures/surrogate_lite/surrogate_lite_data_traceability_workflow.pdf}
 \caption{Traceable COMSOL-to-surrogate workflow for the lite ML baseline. The
 raw flat J--V and profile-grid exports are parsed into long tables, converted
