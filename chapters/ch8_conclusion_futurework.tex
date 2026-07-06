@@ -33,12 +33,13 @@ and GUI-history assignments that may use a reversed layer coordinate. Those
 labels, selections, illumination direction, and contact work functions must be
 corrected and re-solved before the model is called device-specific.
 
-The fifth limitation is export quality control. The validated one-sun
-temperature-aging J--V export is physically scaled and usable, but one
-low-light J--V export currently has an unphysical current-density magnitude and
-is retained only as a labeled placeholder. Quantitative claims from the
-architecture-stress matrix therefore use the validated one-sun J--V sweep and
-the internal-state profile grid, not the invalid low-light J--V metrics.
+The fifth limitation is export completeness. The current canonical
+light-temperature stress-matrix J--V export is physically scaled and usable for
+PCE and $J_{sc}$ across all 360 curves, but its 1.25 V diagnostic voltage limit
+does not resolve zero-current crossings for all mild or early-aging cases.
+Quantitative $V_{oc}$ and FF claims therefore remain limited to the subset of
+curves that cross zero current until a wider diagnostic voltage sweep is
+exported.
 
 \section{Reproducibility}
 

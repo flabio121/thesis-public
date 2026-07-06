@@ -105,20 +105,20 @@ or lifetime simulation.
 \section{Architecture-Stress Data Products}
 
 The baseline architecture aging exports are stored under the architecture
-folder \path{arch_baseline_pin/Aging/}. The validated one-sun
-temperature-aging J--V export is:
+folder \path{arch_baseline_pin/Aging/}. The canonical light-temperature
+stress-matrix J--V export is:
 \begin{verbatim}
-Stress_matrix_jv_001.csv
+Stress_matrix_jv_003.csv
 \end{verbatim}
 and is processed by:
 \begin{verbatim}
 python .\scripts\process_comsol_architecture_stress_jv.py
 \end{verbatim}
 The resulting tables and figures use the prefix
-\path{baseline_pin_stress_matrix_jv_001_}. A second low-light export,
-\path{Stress_matrix_jv_002.csv}, is labeled and processed for traceability but
-is not used for quantitative claims because its current-density scale is
-unphysical.
+\path{baseline_pin_stress_matrix_jv_003_}. Earlier exports
+\path{Stress_matrix_jv_001.csv} and \path{Stress_matrix_jv_002.csv} are retained
+as superseded development history and are not used for current quantitative
+claims.
 
 The internal-state profile grid is stored in:
 \begin{verbatim}

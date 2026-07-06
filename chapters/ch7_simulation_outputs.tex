@@ -203,41 +203,8 @@ parameters remain fixed.
 \section{Architecture-Stress Aging Grid}
 
 The later COMSOL exports extend the thesis data set from static electronic
-parameter sweeps to architecture-scoped aging outputs. The first validated
-architecture-stress J--V export uses the baseline p-i-n architecture at one sun
-and varies aging temperature from 25 to 85~$^\circ$C. Each condition contains
-ten diagnostic J--V scans at equivalent aging times
-0, 50, 100, 200, 300, 400, 500, 600, 800, and 1000 h. These scans use the
-same device architecture and processing convention as the internal-state
-profile grid described below, but they should still be interpreted as COMSOL
-accelerated-aging outputs rather than direct field lifetimes.
-
-\input{outputs/tables/comsol_architecture_stress_grid/baseline_pin_stress_matrix_jv_001_summary}
-
-\begin{figure}[H]
-\centering
-\includegraphics[width=0.86\textwidth]{outputs/figures/comsol_architecture_stress_grid/baseline_pin_stress_matrix_jv_001_pce_retention.png}
-\caption{PCE retention from the validated one-sun baseline p-i-n temperature-aging J--V export. Higher temperature accelerates the modeled degradation: the 1000 h retention decreases from 97.6\% at 25~$^\circ$C to 70.0\% at 85~$^\circ$C.}
-\label{fig:baseline_pin_temperature_pce_retention}
-\end{figure}
-
-\begin{figure}[H]
-\centering
-\includegraphics[width=\textwidth]{outputs/figures/comsol_architecture_stress_grid/baseline_pin_stress_matrix_jv_001_pv_metrics.png}
-\caption{Extracted PCE, fill factor, $J_{sc}$, and $V_{oc}$ for the validated one-sun temperature-aging export. The dominant response at high temperature is a coupled loss in $V_{oc}$ and FF, with a smaller but visible decrease in $J_{sc}$.}
-\label{fig:baseline_pin_temperature_pv_metrics}
-\end{figure}
-
-The temperature sweep provides a cleaner aging trend than the isolated
-electronic sweep because the same latent degradation model is evolved through
-time. The final 85~$^\circ$C case has lower $V_{oc}$, lower FF, and lower
-$J_{sc}$ than the lower-temperature cases, consistent with stronger
-temperature-accelerated trap and resistance evolution. The result is still not
-a full calibration because the COMSOL aging time is an accelerated equivalent
-time and because the current model has not yet been fit to a balanced
-experimental temperature matrix.
-
-The later flat J--V export,
+parameter sweeps to architecture-scoped aging outputs. The current canonical
+architecture-stress J--V export,
 \path{data/raw/comsol/arch_baseline_pin/Aging/Stress_matrix_jv_003.csv},
 stores a full light-temperature diagnostic J--V sweep as a concatenated
 two-column table. The post-processing script splits this file into 360 J--V
@@ -250,7 +217,9 @@ the light-plus-temperature degradation surface. The voltage range ends at
 1.25 V, so some low-temperature and early-aging curves do not cross zero
 current. PCE and $J_{sc}$ are therefore retained for all curves, while
 $V_{oc}$ and FF are reported only for curves with a resolved zero-current
-crossing.
+crossing. Earlier files in the same folder,
+\path{Stress_matrix_jv_001.csv} and \path{Stress_matrix_jv_002.csv}, are
+superseded development exports and are retained only for audit history.
 
 \begin{figure}[H]
 \centering
@@ -462,28 +431,19 @@ for inverse diagnosis or field prediction.
 
 \section{Current Data-Quality Gaps}
 
-One uploaded low-light J--V export,
-\path{data/raw/comsol/arch_baseline_pin/Aging/Stress_matrix_jv_002.csv}, is
-retained in the repository but is not used as a quantitative result. The file
-is labeled as a 0.01-sun aging-temperature sweep with one-sun diagnostic scans,
-but the exported current density is approximately
-$-3.8\times10^5~\mathrm{mA/cm^2}$ across the voltage range. As a result, the
-curves do not cross zero current and the post-processing script correctly
-flags all extracted $V_{oc}$, FF, and PCE values as invalid. The placeholder
-below defines the corrected export needed to complete the low-light J--V
-portion of the architecture-stress matrix.
-
-\begin{figure}[H]
-\centering
-\fbox{\parbox[c][1.35in][c]{0.84\textwidth}{\centering
-\textbf{DATA PLACEHOLDER: corrected low-light J--V export}\\
-Re-export \texttt{Stress\_matrix\_jv\_002.csv} with current density on the
-physical scale of roughly $-40$ to $+25~\mathrm{mA/cm^2}$, separate
-\texttt{aging\_light\_suns} and \texttt{scan\_light\_suns} labels, and the same
-ten diagnostic aging checkpoints used by the validated one-sun sweep.}}
-\caption{Placeholder for the corrected low-light temperature-aging J--V export.}
-\label{fig:placeholder_low_light_jv_export}
-\end{figure}
+The canonical light-temperature stress-matrix J--V result in this thesis is
+\path{data/raw/comsol/arch_baseline_pin/Aging/Stress_matrix_jv_003.csv}. Earlier
+exports, \path{Stress_matrix_jv_001.csv} and \path{Stress_matrix_jv_002.csv},
+are retained only as superseded development history. They are useful for
+auditing the export evolution, but they should not be interpreted as missing
+low-light data or as parallel quantitative results. The current remaining
+data-quality limitation is instead the voltage range of the canonical
+\path{Stress_matrix_jv_003.csv} export: many mild or early-aging curves do not
+cross zero current by 1.25 V. Therefore PCE and $J_{sc}$ are available for the
+full 360-curve grid, while $V_{oc}$ and FF are complete only for the subset of
+curves with a resolved zero-current crossing. A future diagnostic sweep to
+approximately 1.45 V would make $V_{oc}$ and FF complete across the full
+light-temperature grid.
 
 \section{Hysteresis Result}
 
