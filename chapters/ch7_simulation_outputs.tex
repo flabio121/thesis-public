@@ -573,10 +573,33 @@ conservation check is the integrated inventory ratio,
 {\int_{\mathrm{PVK}} c_{\mathrm{ion}}(x,0)\,dx},
 \end{equation}
 evaluated with the same COMSOL integration operator and domain selection used
-by the model. The DIT governing equations and extraction methods are
-implemented or documented, but the quantitative transient result is not claimed
-as a final result until a matched frozen-ion or no-ion control current is
-exported for background subtraction.
+by the model.
+
+The first dedicated COMSOL DIT baseline-control export is shown in
+Fig.~\ref{fig:dit_baseline_control}. This dark, no-scan transient has
+\texttt{light\_on = 0} and \texttt{use\_scan = 0}. It captures the
+electronic/capacitive switching response that must be subtracted from a
+mobile-ion-active pulse before integrating ionic charge. The tail current is
+near zero after the switching transient, so the export is suitable as a
+background-control data product. It does not by itself define a final mobile-ion
+concentration because the matched mobile-ion-active pulse must be processed
+with the same time base and voltage protocol.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{outputs/figures/dit/dit_baseline_control.png}
+\caption{COMSOL DIT baseline-control transient from the dark, no-scan export.
+The large switching spikes define the electronic/capacitive background, while
+the post-switching tail approaches the numerical current-density floor. This
+control is the required background trace for later baseline-corrected ionic
+charge integration.}
+\label{fig:dit_baseline_control}
+\end{figure}
+
+The DIT governing equations and extraction methods are implemented or
+documented, but the quantitative ion-density result is not claimed as a final
+result until the matched mobile-ion-active current is exported and baseline
+subtracted against this control.
 
 \section{Discussion}
 

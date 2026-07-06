@@ -1,0 +1,2 @@
+source_file,n_points,light_on,use_scan,time_min_ms,time_max_ms,tail_baseline_mAcm2,peak_abs_current_mAcm2,peak_time_ms,integrated_baseline_corrected_mCcm2
+data/raw/comsol/arch_baseline_pin/Baseline/DIT.csv,411,0,0,0.0,40.9999999999999,5.754029853825265e-08,11.960430750383594,11.0,0.0003241668473932448

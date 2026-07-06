@@ -37,6 +37,7 @@
 | `docs/ml_surrogate_image_prompts.md` | optional generated conceptual schematics only | prompt provenance for future ChatGPT/image-generation workflow, model-architecture, inverse-diagnosis, DOE-cube, and active-learning schematics; quantitative plots remain script-generated |
 | `docs/ml_surrogate_image_prompts.md` + generated image exports | `figures/ml_surrogate/comsol_to_surrogate_workflow_concept.png`; `figures/ml_surrogate/aging_doe_trajectory_concept.png`; `figures/ml_surrogate/forward_surrogate_architecture_concept.png`; `figures/ml_surrogate/inverse_diagnosis_workflow_concept.png` | Chapter 7 conceptual ML workflow, DOE, forward-surrogate, and inverse-diagnosis panels; these are schematic communication figures, not quantitative model-performance plots |
 | `comsol/DIT.txt` + PAIOS DIT zip | `outputs/figures/dit/dit_paios_comsol.*` | DIT transient comparison and N0 extraction |
+| `data/raw/comsol/arch_baseline_pin/Baseline/DIT.csv` | `outputs/figures/dit/dit_baseline_control.*`; `outputs/tables/dit/dit_baseline_control_summary.csv` | COMSOL dark no-scan DIT baseline-control transient for electronic/capacitive background subtraction before mobile-ion charge integration |
 
 ## Archived Reduced-Order Context
 
