@@ -58,6 +58,7 @@ The architecture-stress extensions are regenerated with:
 \begin{verbatim}
 python .\scripts\process_comsol_architecture_stress_jv.py
 python .\scripts\process_comsol_profile_grid.py
+python .\scripts\plot_comsol_spatial_profiles.py
 python .\scripts\plot_comsol_band_diagrams.py
 \end{verbatim}
 
@@ -90,14 +91,13 @@ the same degradation pathway can produce different electrical signatures in
 different architectures.
 
 The fifth step is completion of the spatial and transient result set. The
-newest exports now support selected band diagrams with quasi-Fermi levels and
-the correct HTL-to-ETL plotting direction, but final validation should still
-include explicit short-circuit, maximum-power, and open-circuit band diagrams,
-selected line-profile panels from the existing profile grid, mobile-ion
-conservation and interface accumulation checks, trap-density profiles, and
-frozen-ion-controlled DIT charge extraction. Placeholders for the remaining
-profile and DIT results are retained in the results chapter until the corrected
-ITO/Ag model is solved and exported in a presentation-ready form.
+newest exports now support selected band diagrams with quasi-Fermi levels, the
+correct HTL-to-ETL plotting direction, and selected ion/trap line-profile
+panels from the profile grid. Final validation should still include explicit
+short-circuit, maximum-power, and open-circuit band diagrams, a strict
+COMSOL-operator ion-conservation check, and frozen-ion-controlled DIT charge
+extraction. The DIT result placeholder is retained in the results chapter until
+that transient is exported in a presentation-ready form.
 
 The final step is a COMSOL-calibrated surrogate workbench. A Streamlit
 prototype exists as supporting infrastructure for this thesis workflow, and

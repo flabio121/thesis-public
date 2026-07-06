@@ -492,23 +492,47 @@ absorber, and ETL side without reversing the exported coordinate.}
 
 The profile-grid summary in Fig.~\ref{fig:profile_grid_final_state_summary}
 establishes that the internal state variables can be exported and summarized
-across stress conditions, but a small set of polished line profiles is still
-needed to show spatial shape, interface localization, and conservation
-directly. The DIT governing equations and extraction methods are implemented
-or documented, but the following placeholders remain before making
-device-specific validation claims.
+across stress conditions. Figures~\ref{fig:spatial_profiles_selected_cases}
+and~\ref{fig:spatial_profiles_high_stress} use those same exports to show the
+spatial form of the ion, trap, effective trap-density, and electric-field
+states directly. These profiles support the qualitative interpretation that
+aging is spatially localized near the transport-layer interfaces, with the
+largest trap-density response under combined high light and high temperature.
+The perovskite-domain average of $u_{\mathrm{ion}}$ in
+Table~\ref{tab:spatial_profile_summary} is included as a normalization
+diagnostic; strict ion conservation should be checked with the same COMSOL
+integration operator used in the model.
 
 \begin{figure}[H]
 \centering
-\fbox{\parbox[c][1.35in][c]{0.84\textwidth}{\centering
-\textbf{RESULT PLACEHOLDER: spatial line profiles}\\
-Select representative low-stress and high-stress cases from the profile grid
-and plot $u_{\mathrm{ion}}(x,t)$, conserved absorber-average ion concentration,
-$D_{\mathrm{trap}}(x,t)$, and $N_{t,\mathrm{eff}}(x,t)$ at early and late
-aging times.}}
-\caption{Placeholder for ion/trap spatial line profiles.}
-\label{fig:placeholder_ion_trap_profiles}
+\includegraphics[width=0.92\textwidth]{outputs/figures/comsol_architecture_stress_grid/baseline_pin_spatial_profiles_selected_cases.png}
+\caption{Selected final-state spatial profiles from the baseline p-i-n
+light-temperature grid. The panels compare low-, medium-, and high-stress
+cases at 1000 h equivalent aging for normalized ion concentration, latent trap
+damage, effective trap density, and electric field. Shaded regions identify
+the HTL and ETL sides without reversing the COMSOL coordinate.}
+\label{fig:spatial_profiles_selected_cases}
 \end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.92\textwidth]{outputs/figures/comsol_architecture_stress_grid/baseline_pin_spatial_profiles_high_stress_time_evolution.png}
+\caption{Time evolution of the high-stress spatial profile at 1 sun and
+400 K. The interface-localized increase in $D_{\mathrm{trap}}$ and
+$N_{t,\mathrm{eff}}$ shows how the latent damage state maps onto an electronic
+recombination parameter while the mobile-ion profile remains strongly
+interfacial.}
+\label{fig:spatial_profiles_high_stress}
+\end{figure}
+
+\input{outputs/tables/comsol_architecture_stress_grid/baseline_pin_spatial_profile_summary}
+
+In Table~\ref{tab:spatial_profile_summary}, the perovskite-domain mean of
+$u_{\mathrm{ion}}$ is a normalization diagnostic rather than a strict
+conservation integral.
+The DIT governing equations and extraction methods are implemented or
+documented, but the quantitative transient result remains pending until a
+frozen-ion or no-ion control current is exported for background subtraction.
 
 \begin{figure}[H]
 \centering
