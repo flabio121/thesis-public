@@ -3,12 +3,15 @@
 \section{COMSOL Multiphysics Framework}
 
 COMSOL Multiphysics is a finite-element platform for solving coupled partial
-differential equations on a shared geometry. In this work, the Semiconductor
-interface solves electronic drift-diffusion and Poisson electrostatics, a
-user-defined PDE solves mobile-ion transport, additional PDE or global states
-represent degradation, and the Electrical Circuit interface represents lumped
-series and shunt pathways. This organization keeps the conservation laws,
-domain selections, boundary conditions, and coupling variables inspectable.
+differential equations on a shared geometry. The model and exported MATLAB
+history used for this thesis were tested with COMSOL Multiphysics 6.4; earlier
+COMSOL versions should be rechecked before reproducing the coupled PDE setup.
+In this work, the Semiconductor interface solves electronic drift-diffusion and
+Poisson electrostatics, a user-defined PDE solves mobile-ion transport,
+additional PDE or global states represent degradation, and the Electrical
+Circuit interface represents lumped series and shunt pathways. This
+organization keeps the conservation laws, domain selections, boundary
+conditions, and coupling variables inspectable.
 
 \section{Device Stack and Geometry}
 
@@ -151,10 +154,10 @@ e^{-\alpha_{\mathrm{pvk}}x_{\mathrm{pvk}}}.
 \end{equation}
 This expression has units of m$^{-3}$s$^{-1}$ when $I_0$ is in W/m$^2$,
 $\alpha_{\mathrm{pvk}}$ is in m$^{-1}$, and $\lambda_{\mathrm{eff}}$ is in m.
-The direct COMSOL variable set for this physical form is
-\texttt{alpha\_pvk}, \texttt{I0}, \texttt{lambda\_eff},
-\texttt{Ephoton}, \texttt{x\_pvk}, and \texttt{Gopt}. The current model uses the
-same Beer--Lambert depth dependence as a normalized algebraic shape so that
+The corresponding implementation variables are listed in
+Tables~\ref{tab:beer_lambert_parameters} and
+\ref{tab:beer_lambert_variables}. The current model uses the same
+Beer--Lambert depth dependence as a normalized algebraic shape so that
 photogeneration can be calibrated independently from the front/back absorption
 contrast.
 
@@ -252,7 +255,7 @@ Parameter & Expression & Meaning \\
 Variable & COMSOL expression & Meaning \\
 \midrule
 \texttt{xpvk} & \texttt{x-x\_pvk0} & Local coordinate into the perovskite \\
-\texttt{xpvk\_clip} & \texttt{min(max(xpvk,0[m]),Lgen)} & Clipped local coordinate \\
+\texttt{xpvk\_clip} & \texttt{min(max(xpvk,0[m]),Lgen)} & Clipped local coordinate; bracketed unit is COMSOL syntax \\
 \texttt{Gshape\_raw} &
 \begin{tabular}[t]{@{}l@{}}
 \texttt{max(exp(-alpha\_gen*xpvk\_clip),}\\
@@ -322,16 +325,30 @@ with Nernst--Planck flux
 \begin{equation}
 \mathbf{N}_{\mathrm{ion}}
 = -D_{\mathrm{ion}}\nabla c_{\mathrm{ion}}
-- \mu_{\mathrm{ion}} z_{\mathrm{ion}} q c_{\mathrm{ion}}\nabla\phi .
++D_{\mathrm{ion}}\frac{z_{\mathrm{ion}}q}{k_{\mathrm{B}}T}
+c_{\mathrm{ion}}\mathbf{E}.
 \label{eq:ion_flux}
 \end{equation}
-Here $D_{\mathrm{ion}}$ is ion diffusivity in m$^2$/s, $\mu_{\mathrm{ion}}$ is
-ion mobility in m$^2$/(V s), $z_{\mathrm{ion}}$ is the signed ion valence, and
-$\mathbf{N}_{\mathrm{ion}}$ has units of m$^{-2}$s$^{-1}$. Since
-$\mathbf{E}=-\nabla\phi$, the migration term may also be written as
-$\mu_{\mathrm{ion}} z_{\mathrm{ion}} q c_{\mathrm{ion}}\mathbf{E}$ depending
-on sign convention. The implemented convention must match the sign of
-$z_{\mathrm{ion}}$ and the direction of the electric field in COMSOL.
+where $\mathbf{E}=-\nabla\phi$. Equivalently, in potential form,
+\begin{equation}
+\mathbf{N}_{\mathrm{ion}}
+=
+-D_{\mathrm{ion}}
+\left[
+\nabla c_{\mathrm{ion}}
++\frac{z_{\mathrm{ion}}q}{k_{\mathrm{B}}T}
+c_{\mathrm{ion}}\nabla\phi
+\right].
+\end{equation}
+Here $D_{\mathrm{ion}}$ is ion diffusivity in m$^2$/s,
+$z_{\mathrm{ion}}$ is the signed ion valence, and
+$\mathbf{N}_{\mathrm{ion}}$ has units of m$^{-2}$s$^{-1}$. If an electrical
+mobility is reported, it is related by the Einstein relation
+$\mu_{\mathrm{ion}}=D_{\mathrm{ion}}q/(k_{\mathrm{B}}T)$ for singly charged
+ions, or more generally the drift factor is
+$D_{\mathrm{ion}}z_{\mathrm{ion}}q/(k_{\mathrm{B}}T)$. This convention avoids
+double-counting $q$ in the mobility term and must be matched to the sign of
+$z_{\mathrm{ion}}$ and the electric-field direction used by COMSOL.
 
 The dependent variable used in the General Form PDE interface is the normalized
 ion state
@@ -345,10 +362,15 @@ into the conservation equation gives
 \begin{equation}
 \frac{\partial u_{\mathrm{ion}}}{\partial t}
 =
-\nabla\cdot\left[
-D_{\mathrm{ion}}\nabla u_{\mathrm{ion}}
-+ \mu_{\mathrm{ion}} z_{\mathrm{ion}} q u_{\mathrm{ion}}\nabla\phi
-\right].
+\nabla\cdot
+\left\{
+D_{\mathrm{ion}}
+\left[
+\nabla u_{\mathrm{ion}}
++\frac{z_{\mathrm{ion}}q}{k_{\mathrm{B}}T}
+u_{\mathrm{ion}}\nabla\phi
+\right]
+\right\}.
 \label{eq:normalized_ion}
 \end{equation}
 The normalized state is dimensionless, so each term in

@@ -113,11 +113,14 @@ structure needed for one.
 
 \section{Scope Boundaries}
 
-The main thesis stops at the COMSOL model and results. Machine learning,
-surrogate modeling, and latent-state inference are possible uses of the
-architecture-stress data set, but trained models are not presented as main-body
-claims. The final interpretation is therefore intentionally bounded: the COMSOL
-model is a physics-based platform for studying coupled electronic, ionic, and
-degradation behavior; the implementation demonstrates qualitative mechanism
-separation and produces surrogate-ready state summaries; experimental
-calibration remains ongoing.
+The main thesis centers on the COMSOL model, degradation-state mappings, and
+simulation results. A lightweight COMSOL-trained surrogate baseline is included
+as a traceability and data-contract demonstration because the current
+architecture-stress exports now support grouped scenario validation. This
+surrogate is not presented as an experimentally calibrated digital twin or
+field-lifetime predictor. The final interpretation is therefore intentionally
+bounded: the COMSOL model is the physics-based platform for studying coupled
+electronic, ionic, and degradation behavior; the implementation demonstrates
+qualitative mechanism separation and produces surrogate-ready state summaries;
+experimental calibration, inverse diagnosis, uncertainty-aware active learning,
+and production web-app deployment remain future work.

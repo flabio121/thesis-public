@@ -275,15 +275,19 @@ to internal state variables across a light-temperature stress matrix.
 \input{outputs/tables/comsol_architecture_stress_grid/baseline_pin_profile_grid_extrema}
 
 Figure~\ref{fig:profile_grid_final_state_summary} and
-Table~\ref{tab:profile_grid_extrema} show that the internal-state grid has the
-expected stress ordering. The smallest final trap response occurs at the
-lowest light and temperature, while the largest final trap and effective
-trap-density responses occur at 400 K and one sun. The resistance-damage states
-increase by orders of magnitude with temperature but are comparatively weakly
-dependent on light in this parameterization. This distinction is useful for
-future inverse modeling: a terminal J--V curve alone may not separate trap
-growth from resistance evolution, but a COMSOL-generated state grid can define
-the physically plausible state manifold for surrogate training.
+Table~\ref{tab:profile_grid_extrema} show the expected stress ordering for the
+irreversible trap and resistance-damage states. The smallest final trap
+response occurs at the lowest light and temperature, while the largest final
+trap and effective trap-density responses occur at 400 K and one sun. The
+resistance-damage states increase by orders of magnitude with temperature but
+are comparatively weakly dependent on light in this parameterization. The
+maximum mobile-ion accumulation should be interpreted differently: it is a
+redistribution diagnostic controlled by electric field, thermal voltage, and
+preconditioning state, not a monotonic irreversible damage variable. This
+distinction is useful for future inverse modeling: a terminal J--V curve alone
+may not separate trap growth from resistance evolution, but a COMSOL-generated
+state grid can define the physically plausible state manifold for surrogate
+training.
 
 \section{Lite COMSOL-Trained Surrogate Baseline}
 
@@ -560,22 +564,19 @@ interfacial.}
 \input{outputs/tables/comsol_architecture_stress_grid/baseline_pin_spatial_profile_summary}
 
 In Table~\ref{tab:spatial_profile_summary}, the perovskite-domain mean of
-$u_{\mathrm{ion}}$ is a normalization diagnostic rather than a strict
-conservation integral.
-The DIT governing equations and extraction methods are implemented or
-documented, but the quantitative transient result remains pending until a
-frozen-ion or no-ion control current is exported for background subtraction.
-
-\begin{figure}[H]
-\centering
-\fbox{\parbox[c][1.35in][c]{0.84\textwidth}{\centering
-\textbf{RESULT PLACEHOLDER: DIT extraction}\\
-Plot the voltage pulse, raw and frozen-ion control currents,
-baseline-corrected ionic current, integrated charge, and extracted
-$N_0=Q_{\mathrm{ion}}/(qAL)$.}}
-\caption{Placeholder for quantitative DIT current integration and mobile-ion concentration extraction.}
-\label{fig:placeholder_dit_result}
-\end{figure}
+$u_{\mathrm{ion}}$ is a sampled-grid normalization diagnostic rather than a
+strict conservation integral. Because $u_{\mathrm{ion}}=c_{\mathrm{ion}}/
+c_{\mathrm{ion},0}$ is a normalized concentration, the physically relevant
+conservation check is the integrated inventory ratio,
+\begin{equation}
+\frac{\int_{\mathrm{PVK}} c_{\mathrm{ion}}(x,t)\,dx}
+{\int_{\mathrm{PVK}} c_{\mathrm{ion}}(x,0)\,dx},
+\end{equation}
+evaluated with the same COMSOL integration operator and domain selection used
+by the model. The DIT governing equations and extraction methods are
+implemented or documented, but the quantitative transient result is not claimed
+as a final result until a matched frozen-ion or no-ion control current is
+exported for background subtraction.
 
 \section{Discussion}
 

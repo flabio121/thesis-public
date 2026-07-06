@@ -3,8 +3,9 @@
 Perovskite solar cells are difficult to diagnose from terminal electrical
 measurements because mobile ions, recombination, transport-layer interfaces,
 contact resistance, and leakage can produce similar changes in a measured
-J--V curve. The modeling problem is therefore not only to fit a decreasing
-power-conversion-efficiency trajectory. It is to build a device model whose
+J--V curve. The modeling challenge is therefore not merely to reproduce the
+observed decrease in power-conversion efficiency over time. It is to build a
+device model whose
 geometry, parameters, voltage protocol, internal state variables, and outputs
 can be inspected and challenged against physical expectations.
 
@@ -36,12 +37,12 @@ corrections.
 The thesis separates slow aging from fast J--V measurement by distinguishing
 the stress voltage $V_{\mathrm{stress}}(t)$ from the scan voltage
 $V_{\mathrm{app}}(t)$. This separation supports accelerated aging studies,
-multi-rate hysteresis simulations, DIT pulse studies for mobile-ion
-concentration extraction, and mechanism-isolation studies. The COMSOL
+multi-rate hysteresis simulations, dark-injection-transient pulse workflows for
+mobile-ion concentration extraction, and mechanism-isolation studies. The COMSOL
 degradation library contains all-off, full coupled, one-mechanism, and
 leave-one-out cases so that the J--V signature of each degradation pathway can
 be interpreted directly.
-Additional architecture-scoped exports add a one-sun temperature-aging J--V
+Additional architecture-scoped exports add a one-sun, temperature-aging J--V
 sweep and a 6 $\times$ 6 light-temperature internal-state profile grid. These
 outputs connect terminal photovoltaic metrics to spatial summaries of
 $u_{\mathrm{ion}}$, $D_{\mathrm{trap}}$, resistance damage, effective trap
@@ -52,10 +53,11 @@ The experimental comparison is qualitative. The COMSOL baseline is more ideal
 than the experimental X12 baseline, while the accelerated light-plus-heat case
 reproduces the direction of degradation, including PCE reduction, fill-factor
 loss, and J--V knee collapse. The current implementation demonstrates
-qualitative mechanism separation and produces surrogate-ready COMSOL state
-summaries, but experimental calibration remains ongoing. Future work should
-improve absolute calibration, validate ion-sensitive parameters, implement
-light-soaking and self-healing terms, complete corrected low-light J--V
-exports, and develop architecture-specific parameter sets.
+qualitative mechanism separation, produces surrogate-ready COMSOL state
+summaries, and provides a first grouped-validation surrogate baseline, but
+experimental calibration remains ongoing. Future work should improve absolute
+calibration, validate ion-sensitive parameters with frozen-ion controls,
+extend the diagnostic voltage window, implement light-soaking and self-healing
+terms, and develop architecture-specific parameter sets.
 
 \clearpage
