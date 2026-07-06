@@ -85,23 +85,25 @@ may still be defined, but it is no longer the primary dynamical object.
 Instead, it serves only as a compact summary metric when a single index is
 needed for plots or optimization outputs.
 
-For example,
+For the aging studies reported in this thesis, the accelerated degradation
+terms are parameterized so that
 \begin{equation}
-24~\mathrm{h}=86400~\mathrm{s},
+1~\mathrm{s~of~simulated~aging}=1~\mathrm{h~of~equivalent~aging}.
 \end{equation}
-so compressing 24 h into 60 s gives
+Equivalently,
 \begin{equation}
-\mathrm{DegAccel}=\frac{86400}{60}=1440.
+t_{\mathrm{age,eq}}[\mathrm{h}]=t_{\mathrm{sim}}[\mathrm{s}],
 \end{equation}
-If a 1000 h $T_{80}$ trajectory is compressed into 60 s, then
+and the corresponding physical acceleration is
 \begin{equation}
-\mathrm{DegAccel}
-=\frac{1000\cdot 3600}{60}
-=60000.
+\mathrm{DegAccel}=\frac{3600~\mathrm{s~real}}{1~\mathrm{s~sim}}=3600.
 \end{equation}
-These factors define computational acceleration, not physical time equivalence.
-Any lifetime claim requires calibration of degradation rates against matched
-experimental aging data.
+This convention is a reporting and calibration choice: it makes the time axis
+read directly as equivalent aging hours while keeping the transient COMSOL
+problem computationally tractable. It does not by itself prove field lifetime.
+The degradation-rate prefactors still need to be calibrated against matched
+experimental aging data before the equivalent-time axis can be interpreted as a
+device-specific lifetime prediction.
 
 \section{Degradation Scenario Library}
 

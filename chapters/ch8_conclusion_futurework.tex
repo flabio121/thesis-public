@@ -4,11 +4,11 @@
 
 The COMSOL model is a physics-based accelerated degradation study, not a final
 first-principles lifetime prediction for a specific commercial device. The
-baseline electronic state is more ideal than the experimental X12 baseline, and
-the degradation rates are compressed for computational practicality. The
-simulated 60 s light-plus-heat case should therefore be interpreted as an
-accelerated qualitative comparison to the 24 h experimental condition, not as a
-direct time match.
+baseline electronic state must still be calibrated against the measured
+fresh-device J--V range, and the degradation rates are accelerated for
+computational practicality. The reported aging time should therefore be
+interpreted as equivalent accelerated aging time, not as a direct field-time
+prediction.
 
 The second limitation is parameter non-uniqueness. Trap growth, shunt leakage,
 contact resistance, surface recombination, and photogeneration loss can all
@@ -101,7 +101,7 @@ the same degradation pathway can produce different electrical signatures in
 different architectures.
 
 The fifth step is completion of the spatial and transient result set. The
-newest exports now support selected band diagrams with quasi-Fermi levels, the
+selected exports now support band diagrams with quasi-Fermi levels, the
 correct HTL-to-ETL plotting direction, and selected ion/trap line-profile
 panels from the profile grid. Final validation should still include explicit
 short-circuit, maximum-power, and open-circuit band diagrams, a strict

@@ -8,60 +8,47 @@ calibration of device performance or field lifetime. The COMSOL degradation
 rate was accelerated to reduce computational time, so simulated seconds and
 experimental hours are not directly equivalent.
 
-The comparison uses two reference points: a baseline electronic state and a
-degraded light-plus-heat state. The interpretation focuses on PCE reduction,
+The comparison uses the newer multi-curve laboratory analysis rather than a
+single-device endpoint. The interpretation focuses on PCE reduction,
 fill-factor loss, J--V shape, and the mechanism balance among trap growth,
 shunting, contact resistance, and mobile-ion redistribution.
 
-\section{Baseline Electronic State}
+\section{Multi-Curve Experimental Baseline Context}
 
-The experimental X12 baseline has
-\begin{equation}
-\mathrm{PCE}=14.10\%.
-\end{equation}
-The COMSOL baseline has
-\begin{equation}
-\mathrm{PCE}=20.24\%, \qquad
-V_{oc}=1.125~\mathrm{V}, \qquad
-\mathrm{FF}=83.27\%, \qquad
-J_{sc}=21.61~\mathrm{mA/cm^2}.
-\end{equation}
-The COMSOL baseline is more ideal than the experiment. This mismatch is
-expected for an initial physics model because idealized contacts, uniform
-or simplified photogeneration, one-dimensional geometry, and literature-based material
-parameters tend to reduce nonradiative and resistive losses. The baseline
-therefore provides a reference for mechanism studies, not a fully calibrated
-absolute representation of the experimental device.
+The current experimental baseline comparison uses multiple fresh laboratory
+J--V curves with PCE above 15\%. This is a better calibration reference than a
+single X-device scan because it exposes the natural spread in initial
+conditions before any aging interpretation is made. The spread matters: a
+COMSOL baseline can match one curve while still missing the ensemble range of
+$V_{oc}$, $J_{sc}$, FF, and curve-knee shape. For that reason, this thesis
+treats the laboratory baseline as an admissible range of fresh-device
+behavior, not as a single exact target.
 
-The calibration target is clear: absolute baseline performance requires
-adjusting absorber generation, transport-layer barriers, trap density, surface
-recombination, contact resistance, and shunt leakage so that $V_{oc}$,
-$J_{sc}$, FF, and PCE all match the same device before degradation parameters
-are interpreted physically.
+The COMSOL baseline remains a mechanism-separation reference. Its absolute
+PCE, $V_{oc}$, $J_{sc}$, and FF should be interpreted only after the same
+model also reproduces the measured range of fresh-device J--V shapes. Any
+remaining baseline mismatch can skew apparent degradation sensitivities. For
+example, an overly ideal initial shunt or contact may make a later shunt or
+series-resistance perturbation look too strong, while an overly low initial
+trap density can exaggerate the apparent voltage sensitivity of trap growth.
 
-\section{Degraded Light-Plus-Heat State}
+\section{Stress-Specific Accelerated Comparison}
 
-The experimental device after 24 h light-plus-heat stress has
-\begin{equation}
-\mathrm{PCE}=10.05\%.
-\end{equation}
-The accelerated COMSOL light-plus-heat case after 60 s has
-\begin{equation}
-\mathrm{PCE}=10.85\%, \qquad
-V_{oc}=1.021~\mathrm{V}, \qquad
-\mathrm{FF}=53.46\%, \qquad
-J_{sc}=19.87~\mathrm{mA/cm^2}.
-\end{equation}
-The simulated degradation direction is consistent with the experimental trend:
-PCE decreases, FF decreases strongly, and the J--V curve develops a degraded
-knee. The simulated $J_{sc}$ also decreases, which is consistent with stronger
-recombination or reduced effective generation.
+The accelerated COMSOL cases are compared against stress-specific experimental
+trends rather than being fitted to one aged device. The central question is
+whether the model gives the correct ordering and curve-shape response:
+light-only aging should remain relatively mild, heat-only aging should isolate
+thermal contributions, and combined light-plus-heat aging should produce the
+largest degradation. The current comparison supports that ordering
+qualitatively, but it is not a calibrated lifetime prediction.
 
-The agreement is qualitative. The comparison supports the use of trap growth,
-shunt leakage, contact resistance, and mobile-ion redistribution as candidate
-mechanisms, but it does not uniquely identify their relative weights. The
-accelerated timescale, baseline mismatch, and incomplete validation of
-ion--trap coupling prevent a calibrated lifetime claim.
+The agreement remains qualitative because the model uses accelerated
+equivalent-aging time, idealized one-dimensional transport, and literature
+material parameters. The comparison supports trap growth, shunt leakage,
+contact resistance, and mobile-ion redistribution as candidate mechanisms, but
+it does not uniquely identify their relative weights. Mechanism attribution
+requires matching the full J--V shape and supporting ion-sensitive
+measurements, not PCE alone.
 
 \section{Stress-Specific Comparison Targets}
 
