@@ -10,6 +10,7 @@
 | one-only COMSOL cases | `data/processed/comsol/comsol_observability_summary.csv` | active observable-subspace argument |
 | COMSOL photogeneration parameters | `data/model_parameters/01_photogeneration_parameters.csv` | Beer-Lambert source-term setup |
 | DIT schematic source | `figures/dit_n0_extraction_infographic.png` | DIT workflow and N0 extraction figure |
+| thesis presentation motivation graphic | `figures/pptx_ai/si_vs_psc_comparison.png` | qualitative Chapter 1 comparison of commercial silicon PV and emerging perovskite PV |
 | processed COMSOL tables | `outputs/figures/comsol_baseline_pce.png` | baseline vs control figure |
 | processed COMSOL tables | `outputs/figures/comsol_mechanism_sensitivity.png` | one-only and leave-one-out comparison |
 | processed COMSOL tables | `outputs/figures/comsol_metric_signatures.png` | mechanism signature figure |
