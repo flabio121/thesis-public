@@ -467,29 +467,36 @@ $\mu_{\mathrm{ion}}=10^{-18}~\mathrm{m^2/(V\,s)}$, and
 $r_{\mathrm{scan}}=0.1~\mathrm{V/s}$. It does not prove that the selected ion
 mobility or concentration is unique.
 
-\section{Pending Spatial and Transient Validation Results}
+\section{Spatial and Transient Validation Results}
 
-The presentation identifies three additional outputs needed for a complete
-device-physics validation: simulated band diagrams, publication-ready
-time-resolved mobile-ion and trap line profiles, and a quantitative DIT
-transient. The profile-grid summary in
-Fig.~\ref{fig:profile_grid_final_state_summary} establishes that the internal
-state variables can be exported and summarized across stress conditions, but a
-small set of polished line profiles is still needed to show spatial shape,
-interface localization, and conservation directly. The governing equations and
-extraction methods are implemented or documented, but the following
-placeholders remain before making device-specific validation claims.
+The newest COMSOL profile exports include the band-edge and quasi-Fermi-level
+variables needed to check the simulated internal electrostatics. The selected
+band-diagram cases in Fig.~\ref{fig:band_diagrams_selected_cases} use the
+native left-to-right COMSOL coordinate, with the HTL side on the left and the
+ETL side on the right. Energies were exported by COMSOL as joules and converted
+to electron-volts for plotting. The resulting profiles show a monotonic
+internal band-bending trend across the absorber and carrier-selective
+alignment at the transport-layer sides. These plots do not replace a full
+operating-point validation at short circuit, maximum power, and open circuit,
+but they remove the previous coordinate-direction ambiguity.
 
 \begin{figure}[H]
 \centering
-\fbox{\parbox[c][1.35in][c]{0.84\textwidth}{\centering
-\textbf{RESULT PLACEHOLDER: Band diagrams}\\
-Export $E_c$, $E_v$, electron and hole quasi-Fermi levels, and electrostatic
-potential for equilibrium, short circuit, maximum power, and open circuit.
-Confirm carrier-selective alignment and the ITO-to-Ag coordinate direction.}}
-\caption{Placeholder for architecture-consistent simulated band diagrams.}
-\label{fig:placeholder_band_diagrams}
+\includegraphics[width=\textwidth]{outputs/figures/comsol_architecture_stress_grid/baseline_pin_band_diagrams_selected_cases.png}
+\caption{Selected COMSOL band diagrams from the newest aging-profile exports.
+The panels compare final 1000 h profiles for representative low-, medium-, and
+high-stress cases. The shaded regions identify the HTL side, perovskite
+absorber, and ETL side without reversing the exported coordinate.}
+\label{fig:band_diagrams_selected_cases}
 \end{figure}
+
+The profile-grid summary in Fig.~\ref{fig:profile_grid_final_state_summary}
+establishes that the internal state variables can be exported and summarized
+across stress conditions, but a small set of polished line profiles is still
+needed to show spatial shape, interface localization, and conservation
+directly. The DIT governing equations and extraction methods are implemented
+or documented, but the following placeholders remain before making
+device-specific validation claims.
 
 \begin{figure}[H]
 \centering
