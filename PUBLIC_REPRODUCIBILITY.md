@@ -256,7 +256,13 @@ outputs/figures/comsol_architecture_stress_grid/baseline_pin_spatial_profiles_se
 outputs/figures/comsol_architecture_stress_grid/baseline_pin_spatial_profiles_high_stress_time_evolution.{png,svg,pdf}
 ```
 
-Selected newer profile exports include band-edge and quasi-Fermi-level
+The true dark-equilibrium baseline energy diagram is exported separately:
+
+```text
+data/raw/comsol/arch_baseline_pin/Baseline/Energy Diagram.csv
+```
+
+Selected newer aging-profile exports include band-edge and quasi-Fermi-level
 variables:
 
 ```text
@@ -276,12 +282,20 @@ This writes:
 ```text
 data/processed/comsol/architecture_stress_grid/baseline_pin_band_profiles_long.csv
 outputs/tables/comsol_architecture_stress_grid/baseline_pin_band_profiles_long.csv
+outputs/tables/comsol_architecture_stress_grid/baseline_pin_band_dark_equilibrium_300K.csv
+outputs/figures/comsol_architecture_stress_grid/baseline_pin_band_diagram_dark_equilibrium_300K.{png,svg,pdf}
+outputs/figures/comsol_architecture_stress_grid/baseline_pin_band_diagram_0sun_300K_comsol_style.{png,svg,pdf}
 outputs/figures/comsol_architecture_stress_grid/baseline_pin_band_diagrams_selected_cases.{png,svg,pdf}
 outputs/figures/comsol_architecture_stress_grid/baseline_pin_band_diagram_evolution_1sun_400K.{png,svg,pdf}
 ```
 
 The long band-profile CSVs are generated intermediates and may remain untracked
 because of size; the selected-case figures are the thesis-facing artifacts.
+The dark-equilibrium 300 K figure is the correct literature-style band-alignment
+reference because its electron and hole quasi-Fermi levels overlap. The
+low-light 0-sun/300 K aging-grid figure uses COMSOL-style colors and line types,
+but it is a non-equilibrium low-light operating-state diagnostic rather than a
+dark-equilibrium band diagram.
 
 COMSOL exports `semi.Ec_e`, `semi.Ev_e`, `semi.Efn_e`, and `semi.Efp_e` in
 joules; the plotting script converts these to electron-volts and keeps the
