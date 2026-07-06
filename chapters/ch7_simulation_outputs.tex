@@ -1,5 +1,20 @@
 \chapter{Simulation Results and Interpretation}
 
+\section{Data Provenance and Scope}
+
+Chapter~7 intentionally combines several COMSOL export generations because each
+one answers a different validation question. The accelerated degradation
+baseline is an earlier compact trajectory used to demonstrate coupled aging
+behavior. The electronic parameter sweep is a static sensitivity export used to
+check the direction and magnitude of terminal J--V responses. The current
+canonical light-temperature aging grid is
+\path{data/raw/comsol/arch_baseline_pin/Aging/Stress_matrix_jv_003.csv}; it is
+the source for the 360-curve stress-matrix results. Earlier stress-matrix J--V
+exports are retained only as audit history. Absolute PCE, lifetime, and
+hysteresis values should therefore be compared within each section's stated
+data source, not across these separate export protocols unless the comparison
+is explicitly identified as qualitative.
+
 \section{Accelerated Degradation Baseline}
 
 The processed COMSOL degradation export contains 12 scenarios, 11 aging times,
@@ -140,9 +155,11 @@ $V_{oc}$, $J_{sc}$, FF, $V_{\mathrm{mpp}}$, and $J_{\mathrm{mpp}}$.
 \begin{table}[H]
 \centering
 \caption{Summary of the one-parameter-at-a-time COMSOL electronic sweep. The
-held parameters are fixed at the best-performing baseline values:
-$N_{t,0}=10^{14}~\mathrm{cm^{-3}}$, $R_{s,0}=0.1~\Omega\mathrm{cm^2}$, and
-$R_{sh,0}=10^{6}~\Omega\mathrm{cm^2}$.}
+held parameters are fixed at the model reference values:
+$N_{t,0}=10^{16}~\mathrm{cm^{-3}}$, $R_{s,0}=1~\Omega\mathrm{cm^2}$, and
+$R_{sh,0}=10^{5}~\Omega\mathrm{cm^2}$. The PCE ranges report the extrema from
+that one-parameter-at-a-time slice, not the best point from the full
+all-combination grid.}
 \label{tab:parameter_sweep_summary}
 \begin{tabular}{@{}p{0.13\textwidth}p{0.25\textwidth}p{0.17\textwidth}p{0.34\textwidth}@{}}
 \toprule
@@ -150,16 +167,16 @@ Sweep & Parameter range & PCE range & Main response and interpretation \\
 \midrule
 $N_{t,0}$ &
 $10^{14}$--$10^{20}~\mathrm{cm^{-3}}$ &
-19.44--17.37\% &
+19.01--17.08\% &
 $V_{oc}$ and $J_{sc}$ decrease, consistent with stronger bulk recombination. \\
 $R_{s,0}$ &
 0.1--$10~\Omega\mathrm{cm^2}$ &
-19.44--15.91\% &
-FF decreases from 0.784 to 0.642, consistent with series loss. \\
+19.42--15.90\% &
+FF decreases from 0.812 to 0.665, consistent with series loss. \\
 $R_{sh,0}$ &
 $10^{3}$--$10^{6}~\Omega\mathrm{cm^2}$ &
-18.39--19.44\% &
-FF improves from 0.741 to 0.784 as leakage is suppressed. \\
+18.06--19.01\% &
+FF improves from 0.757 to 0.795 as leakage is suppressed. \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -192,9 +209,10 @@ export.}
 \end{figure}
 
 Figure~\ref{fig:comsol_parameter_sweep_metrics} converts the J--V curves into
-scalar photovoltaic metrics. In this export, the best-performing baseline point
-has PCE $=19.44\%$, $V_{oc}=1.205$ V, $J_{sc}=20.58~\mathrm{mA/cm^2}$, and
-FF $=0.784$. The all-combination sweep spans 13.42--19.44\% PCE. This range is
+scalar photovoltaic metrics. In this export, the best-performing full-factorial
+grid point
+has PCE $=19.44\%$, $V_{oc}=1.163$ V, $J_{sc}=20.58~\mathrm{mA/cm^2}$, and
+FF $=0.812$. The all-combination sweep spans 13.42--19.44\% PCE. This range is
 useful for identifying plausible calibration directions and for defining
 future surrogate-model input ranges. It should not be interpreted as an
 optimized device design because optical, transport-layer, ion, and degradation
@@ -464,8 +482,10 @@ history. The result supports the physical need for time-dependent scan
 simulation. This presentation case uses
 $N_0=10^{17}~\mathrm{cm^{-3}}$,
 $\mu_{\mathrm{ion}}=10^{-18}~\mathrm{m^2/(V\,s)}$, and
-$r_{\mathrm{scan}}=0.1~\mathrm{V/s}$. It does not prove that the selected ion
-mobility or concentration is unique.
+$r_{\mathrm{scan}}=0.1~\mathrm{V/s}$. It is a separate presentation diagnostic
+case rather than part of the canonical
+\path{Stress_matrix_jv_003.csv} light-temperature grid, and it does not prove
+that the selected ion mobility or concentration is unique.
 
 \section{Spatial and Transient Validation Results}
 
