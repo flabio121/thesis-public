@@ -1,5 +1,10 @@
 \chapter{Aging, Hysteresis, and Voltage Protocols}
 
+Aging, hysteresis, and transient-ion measurements operate on different
+timescales. This chapter separates the slow stress protocol from the faster
+J--V scan and from short DIT-style voltage pulses, so that voltage history,
+measurement, and degradation are not treated as the same process.
+
 \section{Aging and Measurement Timescales}
 
 The model separates slow degradation from fast J--V measurement. The aging
@@ -100,7 +105,7 @@ and the corresponding physical acceleration is
 \end{equation}
 This convention is a reporting and calibration choice: it makes the time axis
 read directly as equivalent aging hours while keeping the transient COMSOL
-problem computationally tractable. It does not by itself prove field lifetime.
+problem computationally tractable. It is not a field-lifetime prediction.
 The degradation-rate prefactors still need to be calibrated against matched
 experimental aging data before the equivalent-time axis can be interpreted as a
 device-specific lifetime prediction.
@@ -174,10 +179,13 @@ ion concentration, or ion--trap coupling is experimentally unique.
 
 \section{DIT Pulse and Mobile-Ion Concentration Extraction}
 
-The drift-ion transient (DIT) protocol provides an ion-sensitive complement to
-multi-rate J--V scans. A preconditioned ionic profile is perturbed with a short
-voltage pulse, the terminal current transient is recorded, and the mobile-ion
-charge associated with the transient component is integrated
+The Dark Injection Transient (DIT) protocol provides an ion-sensitive
+complement to multi-rate J--V scans. In a DIT measurement, the device is first
+placed in a defined electrical state, then a short voltage pulse is applied in
+the dark so that the resulting current transient can be used to estimate
+mobile-ion motion. In this thesis, a preconditioned ionic profile is perturbed
+with a short voltage pulse, the terminal current transient is recorded, and the
+mobile-ion charge associated with the transient component is integrated
 \cite{Futscher_2019,SchmidtPRX_2025,SchmidtACS_2025}. In COMSOL, the protocol
 is implemented as a time-dependent voltage boundary condition:
 \begin{equation}
@@ -197,13 +205,6 @@ stationary solver has no time variable and cannot evaluate a function that
 depends on \texttt{t}. The DIT study is initialized from the preconditioned
 $u_{\mathrm{ion}}(x,0)$ profile and then applies $V_{\mathrm{DIT}}(t)$ to the
 terminal or external-circuit boundary.
-
-\begin{figure}[H]
-\centering
-\includegraphics[width=\textwidth]{figures/dit_n0_extraction_infographic.png}
-\caption{DIT measurement concept and COMSOL extraction workflow. A preconditioned ion profile is perturbed by a 10 ms voltage pulse, the baseline-corrected current transient is integrated, and the integrated ionic charge is converted into an average mobile-ion concentration.}
-\label{fig:dit_n0_extraction}
-\end{figure}
 
 The recorded terminal current contains fast electronic, capacitive, leakage,
 and ionic contributions. The ion-sensitive quantity is therefore not the raw

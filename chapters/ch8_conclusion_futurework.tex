@@ -1,80 +1,74 @@
 \chapter{Limitations, Reproducibility, and Future Work}
 
+The thesis ends by separating current conclusions from remaining work. The
+model is useful for mechanism separation and surrogate-ready data generation,
+but device-specific lifetime prediction still requires stronger calibration,
+ion-sensitive validation, and broader experimental constraints.
+
 \section{Limitations}
 
 The COMSOL model is a physics-based accelerated degradation study, not a final
-first-principles lifetime prediction for a specific commercial device. The
-baseline electronic state must still be calibrated against the measured
+lifetime prediction for a specific commercial device. The
+starting electronic behavior must still be calibrated against the measured
 fresh-device J--V range, and the degradation rates are accelerated for
 computational practicality. The reported aging time should therefore be
 interpreted as equivalent accelerated aging time, not as a direct field-time
 prediction.
 
-The second limitation is parameter non-uniqueness. Trap growth, shunt leakage,
-contact resistance, surface recombination, and photogeneration loss can all
-reduce PCE. Several combinations can produce similar terminal J--V degradation.
-The model needs hysteresis, impedance, transient-current, optical, and aging
-data to separate mechanisms with confidence.
+The second limitation is that different causes can look similar in a J--V
+curve. Defect growth, leakage, contact resistance, surface recombination, and
+reduced light-generated current can all lower PCE. Several combinations can
+produce similar measured J--V degradation. The model needs hysteresis, impedance,
+transient-current, optical, and aging data to separate these mechanisms with
+confidence.
 
-The third limitation is mobile-ion validation. The normalized ion state
-$u_{\mathrm{ion}}$ provides a physically useful way to couple redistribution
-into Poisson electrostatics, but the ion mobility, concentration, boundary
-conditions, and ion--trap coupling need experimental support before they can be
-treated as device-specific material parameters. DIT and capacitance-based
-measurements provide stronger constraints than terminal J--V curves, but the
-integrated current must be baseline-corrected so that electronic plateaus and
-capacitive spikes are not interpreted as mobile ionic charge.
+The third limitation is ion validation. The normalized ion variable
+$u_{\mathrm{ion}}$ represents ion movement inside the model, but ion mobility,
+concentration, boundary behavior, and the link between ion motion and defect
+growth need
+experimental support before they can be treated as device-specific
+material parameters. DIT and capacitance-based measurements provide stronger
+constraints than ordinary J--V curves, but the integrated current must be
+baseline-corrected so that electronic plateaus and capacitive spikes are not
+mistaken for mobile ionic charge.
 
 The fourth limitation is implementation consistency with the laboratory stack.
 The physical architecture is
 glass/ITO/NiO$_x$/MeO-2PACz/perovskite/C$_{60}$/BCP/Ag/UV-resin/glass,
-illuminated from the ITO side. Historical COMSOL objects retain FTO/Au labels
-and GUI-history assignments that may use a reversed layer coordinate. Those
-labels, selections, illumination direction, and contact work functions must be
-corrected and re-solved before the model is called device-specific.
+illuminated from the ITO side. All stack labels, domain selections,
+illumination direction, coordinate conventions, and contact work functions must
+remain consistent with that architecture before the model is called
+device-specific.
 
-The fifth limitation is export completeness. The current canonical
-light-temperature stress-matrix J--V export is physically scaled and usable for
-PCE and $J_{sc}$ across all 360 curves, but its 1.25 V diagnostic voltage limit
-does not resolve zero-current crossings for all mild or early-aging cases.
+The fifth limitation is diagnostic-voltage completeness. The light-temperature
+stress-matrix J--V study is physically scaled and usable for PCE and $J_{sc}$
+across all 360 curves, but its 1.25 V diagnostic voltage limit does not resolve
+zero-current crossings for all mild or early-aging cases.
 Quantitative $V_{oc}$ and FF claims therefore remain limited to the subset of
-curves that cross zero current until a wider diagnostic voltage sweep is
-exported.
+curves that cross zero current. A wider diagnostic voltage sweep is needed
+before those quantities can be reported for every case.
 
 \section{Reproducibility}
 
-The COMSOL processing workflow is reproducible from the repository root:
-\begin{verbatim}
-python .\scripts\run_comsol_paper_pipeline.py
-\end{verbatim}
-The report can then be rebuilt with:
-\begin{verbatim}
-latexmk -pdf -interaction=nonstopmode main.tex
-\end{verbatim}
-The processed tables and figures under \path{data/processed/comsol/} and
-\path{outputs/} provide a traceable path from exported COMSOL data to the
-reported J--V metrics, lifetime markers, and mechanism-sensitivity plots.
-The architecture-stress extensions are regenerated with:
-\begin{verbatim}
-python .\scripts\process_comsol_architecture_stress_jv.py
-python .\scripts\process_comsol_profile_grid.py
-python .\scripts\plot_comsol_spatial_profiles.py
-python .\scripts\plot_comsol_band_diagrams.py
-\end{verbatim}
+The analysis is organized so that the reported figures and tables can be
+regenerated from the COMSOL-derived tables. The reproducibility package
+separates simulation outputs, processed tables, plotting routines, thesis
+source, and generated figures. Appendix~C gives the practical execution
+details for rebuilding the results without interrupting the scientific
+narrative in the main chapters.
 
 \section{Data Availability}
 
-The thesis source, processing scripts, generated figures and tables, selected
-COMSOL exports, and public PDF are maintained in the supporting public
-repository at \url{https://github.com/flabio121/thesis-public}. Large raw
-COMSOL intermediates and local model files are excluded from the public copy
-when they are too large for practical version control or contain active local
-working files. Their generation paths and provenance are documented in
-Appendix C, \path{REPRODUCIBILITY.md}, and the traceability matrix.
+The thesis source, processed analysis artifacts, generated figures and tables,
+and public PDF are maintained in the supporting public repository at
+\url{https://github.com/flabio121/thesis-public}. Large simulation
+intermediates are excluded from the public copy when they are too large for
+practical version control. Appendix~C and the reproducibility files document
+how the public artifacts map to the underlying simulation studies.
 
 \section{Future Work}
 
-The most important next step is improved calibration. The pristine COMSOL
+The next step is improved calibration. The pristine COMSOL
 baseline should be fit to the same device architecture and measurement
 conditions as the experimental J--V data. The fit should match $V_{oc}$,
 $J_{sc}$, FF, and PCE before degradation parameters are interpreted.
@@ -86,57 +80,52 @@ represent partial recovery during rest. These terms require controlled
 light-soaking, dark-rest, and repeated-scan experiments before they should be
 used in predictive simulations.
 
-The third step is ion-sensitive validation. EIS, TPC, capacitance, ion-current,
-and scan-rate-dependent hysteresis measurements can constrain
+The third step is ion-sensitive validation. Electrical impedance spectroscopy
+(EIS), transient photocurrent (TPC), capacitance, ion-current, and
+scan-rate-dependent hysteresis measurements can help determine
 $c_{\mathrm{ion},0}$, $\mu_{\mathrm{ion}}$, $D_{\mathrm{ion}}$, boundary
-conditions, and ion--trap coupling. These measurements are needed because
-terminal J--V curves alone do not uniquely determine the mobile-ion state.
-Future DIT simulations should pair each mobile-ion case with a frozen-ion
-control so that $I_{\mathrm{corr}}(t)$ and the extracted $N_0$ are defined by
-the ionic transient rather than by the full terminal current.
+conditions, and the link between ion motion and defect growth. These
+measurements are needed because ordinary J--V curves alone do not uniquely
+determine the ion state.
+Future DIT simulations should pair each ion-transport case with a control case
+where the ions are held fixed, so that $I_{\mathrm{corr}}(t)$ and the extracted
+$N_0$ are defined by the ion-related transient signal rather than by the total
+measured current.
 
-The fourth step is architecture-specific parameterization. The model should be
+The fourth step is device-stack-specific calibration. The model should be
 calibrated separately for device stacks, contacts, and barrier layers because
 the same degradation pathway can produce different electrical signatures in
 different architectures.
 
 The fifth step is completion of the spatial and transient result set. The
-selected exports now support band diagrams with quasi-Fermi levels, the
-correct HTL-to-ETL plotting direction, and selected ion/trap line-profile
-panels from the profile grid. Final validation should still include explicit
-short-circuit, maximum-power, and open-circuit band diagrams, a strict
-COMSOL-operator ion-conservation check, and frozen-ion-controlled DIT charge
+selected spatial results now support band diagrams with carrier energy levels,
+the correct HTL-to-ETL plotting direction, and selected ion and trap
+line-profile panels from the profile grid. Final validation should still
+include explicit short-circuit, maximum-power, and open-circuit band diagrams,
+a strict COMSOL ion-conservation check, and fixed-ion-control DIT charge
 extraction. The quantitative DIT result remains a future validation step until
-a frozen-ion or no-ion control current is exported for baseline subtraction.
+a fixed-ion or no-ion control current is available for baseline subtraction.
 
-The final step is a COMSOL-calibrated surrogate workbench. A Streamlit
-prototype exists as supporting infrastructure for this thesis workflow, and
-the current 6 $\times$ 6 light-temperature export now supports a first
-traceable lite surrogate baseline. That baseline demonstrates grouped
-COMSOL-to-COMSOL interpolation for PCE, normalized PCE, PCE retention, $J_{sc}$,
-and J--V current density, but it is still forward-only and calibrated only to
-the present COMSOL grid. The current lite surrogate results are generated by
-\path{scripts/train_lite_surrogates.py}; the Streamlit app remains a prototype
-interface rather than the production deployment of those models. The web app
-still needs uncertainty estimates, active-learning run selection, inverse
-diagnosis from measured J--V history, and matched experimental calibration. In
-the intended final role, the surrogate would accelerate parameter exploration,
-identify
-high-value next COMSOL simulations, and support latent-state inference from
-measured J--V history. It would not replace the COMSOL drift--diffusion model
-as the physics source of truth.
+The final step is a COMSOL-calibrated surrogate workbench. The current
+6 $\times$ 6 light-temperature grid supports a first forward surrogate
+baseline. That baseline demonstrates grouped COMSOL-to-COMSOL interpolation
+for PCE, normalized PCE, PCE retention, $J_{sc}$, and J--V current density, but
+it is trained only on the present COMSOL grid and is not an experimental
+predictor. A later tool would need uncertainty estimates, active-learning run
+selection, inverse diagnosis from measured J--V history, and matched
+experimental calibration. The surrogate would speed up parameter exploration
+and help infer hidden device states from measured J--V history, but it would
+not replace the COMSOL drift--diffusion model as the physics reference.
 
 \section{Concluding Perspective}
 
-This thesis develops a COMSOL-based degradation modeling framework for
-perovskite solar cells. The model is a physics-based platform for studying
-coupled electronic, ionic, and degradation behavior. The implementation
-demonstrates qualitative mechanism separation through drift-diffusion transport,
-mobile-ion electrostatics, trap-density growth, contact resistance, shunt
-leakage, voltage protocols, Beer--Lambert optical generation, DIT pulse
-analysis, electronic parameter sweeps, and accelerated J--V aging studies.
-Experimental calibration remains
-ongoing, and future work should focus on improved calibration, self-healing and
-light-soaking implementation, ion-sensitive validation, architecture-specific
+This thesis develops a COMSOL-based degradation model for perovskite solar
+cells. The model links electronic transport, ion movement, defect growth,
+contact resistance, leakage, voltage protocol, optical generation, DIT pulse
+analysis, parameter sweeps, and accelerated J--V aging studies in one workflow.
+It shows that several hidden mechanisms can produce distinct but overlapping
+J--V signatures. Experimental calibration remains the main unfinished step.
+Future work should focus on improved calibration, self-healing and
+light-soaking terms, ion-sensitive validation, device-stack-specific
 parameters, and broader COMSOL-calibrated surrogate use after the data set is
 physically grounded.

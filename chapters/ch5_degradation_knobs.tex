@@ -1,5 +1,11 @@
 \chapter{Degradation-State Mappings}
 
+Slow degradation is implemented through bounded damage states rather than by
+directly forcing the J--V curve to decay. These states map to model parameters
+such as trap density, contact resistance, shunt resistance, surface
+recombination, and generation loss, allowing each mechanism to be tested before
+the mechanisms are combined.
+
 \section{Purpose of Damage-State Variables}
 
 The COMSOL model uses damage-state variables to connect slow physical changes
@@ -14,13 +20,6 @@ as trap density, ionic charge, series resistance, shunt resistance, surface
 recombination, and photogeneration. These mappings are not a substitute for
 calibration. They define testable hypotheses about which physical mechanism
 produces which J--V signature.
-
-\begin{figure}[H]
-\centering
-\includegraphics[width=\textwidth]{figures/pptx_ai/degradation_implementation_graphic.png}
-\caption[COMSOL degradation implementation concept.]{COMSOL degradation implementation concept. Stressors drive slow damage-state evolution; damage states map to trap density, surface recombination, series resistance, shunt resistance, and effective generation; the updated parameters are then used in fast J--V simulations to produce mechanism-specific performance loss.}
-\label{fig:degradation_implementation_graphic}
-\end{figure}
 
 \section{Trap Degradation State}
 
@@ -177,9 +176,9 @@ rate:
 \begin{equation}
 G_{\mathrm{eff}}=G_0\left(1-a_GD_G\right).
 \end{equation}
-This mapping is useful for testing absorber damage or optical loss. Its
-primary J--V signature is reduced $J_{sc}$, with secondary effects on PCE and
-possibly FF. It should not be used to represent recombination loss unless
+This mapping tests absorber damage or optical loss. Its primary J--V signature
+is reduced $J_{sc}$, with secondary effects on PCE and possibly FF. It should
+not be used to represent recombination loss unless
 independent optical or quantum-efficiency evidence supports that choice.
 
 \section{Light Soaking and Self-Healing}

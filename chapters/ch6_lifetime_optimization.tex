@@ -1,5 +1,10 @@
 \chapter{Experimental Comparison and Calibration Targets}
 
+The experimental data are used as calibration targets, not as proof that the
+current model is fully predictive. This chapter compares the simulated and
+measured J--V behavior in terms of degradation direction, curve shape, PCE
+loss, fill-factor loss, and remaining calibration gaps.
+
 \section{Purpose of the Comparison}
 
 The experimental comparison evaluates whether the COMSOL model reproduces the
@@ -39,10 +44,10 @@ trends rather than being fitted to one aged device. The central question is
 whether the model gives the correct ordering and curve-shape response:
 light-only aging should remain relatively mild, heat-only aging should isolate
 thermal contributions, and combined light-plus-heat aging should produce the
-largest degradation. The current comparison supports that ordering
-qualitatively, but it is not a calibrated lifetime prediction.
+largest degradation. The current comparison supports that ordering, but it is
+not a calibrated lifetime prediction.
 
-The agreement remains qualitative because the model uses accelerated
+The agreement is not yet quantitative because the model uses accelerated
 equivalent-aging time, idealized one-dimensional transport, and literature
 material parameters. The comparison supports trap growth, shunt leakage,
 contact resistance, and mobile-ion redistribution as candidate mechanisms, but
@@ -104,7 +109,7 @@ Together, these comparisons show why the degradation model should not be
 calibrated only to PCE. Light-only and heat-only endpoints show milder or
 partially compensating changes in the electronic metrics, while coupled
 light-plus-heat exposure produces a more consistent loss in current, voltage,
-fill factor, and J--V curve shape. A useful calibration must therefore match
+fill factor, and J--V curve shape. A calibrated model must therefore match
 both the metric trajectories and the stress-dependent J--V shape.
 
 \section{Mechanism Balance}
@@ -140,7 +145,7 @@ ion-sensitive or hysteresis-sensitive measurements.
 \end{enumerate}
 
 Until those steps are complete, the COMSOL model is best interpreted as a
-physics-based mechanism-separation platform rather than a final lifetime
+physics-based mechanism-separation model rather than a final lifetime
 prediction tool.
 
 \section{Architecture-Specific Calibration Context}

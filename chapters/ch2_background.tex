@@ -1,20 +1,27 @@
 \chapter{Physical Model Requirements}
 
+Before degradation can be interpreted, the model must define what physical
+behavior needs to be represented. This chapter summarizes the p-i-n device
+operation, the meaning of J--V observables, and the electronic, ionic, optical,
+and recombination mechanisms needed to study perovskite solar-cell degradation.
+
 \section{Why PSCs Need Mechanistic Models}
 
 Stability assessment for PSCs is difficult because degradation depends on
 device architecture, stress protocol, preconditioning, and measurement history.
 The ISOS consensus work formalized how stability tests should be reported, but
 standardized testing does not remove the need for mechanism-aware models
-\cite{Khenkin_2020}. A useful model must connect an observed electrical change
-to a plausible internal cause without hiding uncertainty.
+\cite{Khenkin_2020}. A model must connect an observed electrical change to a
+plausible internal cause without hiding uncertainty.
 
 Drift-diffusion modeling is the natural starting point because it represents
 carrier generation, recombination, transport, and electrostatics in the device
-stack. Recent PSC modeling reviews emphasize that these models remain valuable
-when assumptions are explicit and when electronic and ionic degrees of freedom
-are not confused \cite{Singh_2025}. COMSOL is used here as the finite-element
-environment for that device model, not as a black box.
+stack. In this context, drift means charge motion driven by an electric field,
+and diffusion means charge motion driven by concentration gradients. Recent PSC
+modeling reviews emphasize that these models are most reliable when
+assumptions are explicit and when electronic and ionic degrees of freedom are not confused
+\cite{Singh_2025}. COMSOL is used here as the finite-element environment for
+that device model, with the assumptions and couplings stated explicitly.
 
 \section{p-i-n Device Operation and J--V Observables}
 
@@ -89,8 +96,10 @@ by $q$.
 Illumination enters the Semiconductor Module as a volumetric electron-hole pair
 generation rate $G$ in the perovskite absorber. The optical field is not solved
 with a Wave Optics interface. Instead, the model uses an algebraic
-Beer--Lambert generation profile that supplies a spatially varying source term
-to the semiconductor equations. The photon flux entering the absorber is
+Beer--Lambert generation profile. Beer--Lambert absorption is the standard
+exponential attenuation of light as it travels through an absorbing material;
+here it supplies a spatially varying source term to the semiconductor
+equations. The photon flux entering the absorber is
 represented as
 \begin{equation}
 \Phi(x)=\Phi_0 e^{-\alpha x},
