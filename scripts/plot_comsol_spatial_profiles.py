@@ -108,12 +108,9 @@ def save_figure(fig: plt.Figure, out_base: Path) -> None:
 
 
 def add_layer_guides(ax: plt.Axes) -> None:
-    y0, y1 = ax.get_ylim()
-    ax.axvspan(29, PVK_LEFT_NM, color="#D8E8FF", alpha=0.45, lw=0, zorder=0)
-    ax.axvspan(PVK_RIGHT_NM, 489, color="#FFE6CC", alpha=0.55, lw=0, zorder=0)
-    ax.axvline(PVK_LEFT_NM, color="#777777", lw=0.8, ls="--", zorder=1)
-    ax.axvline(PVK_RIGHT_NM, color="#777777", lw=0.8, ls="--", zorder=1)
-    ax.set_ylim(y0, y1)
+    # Spatial-profile exports can be variable/domain selected in COMSOL. Avoid
+    # HTL/ETL overlays here so PVK-only variables are not visually misassigned.
+    return None
 
 
 def read_profile(path: Path) -> pd.DataFrame:
@@ -206,6 +203,42 @@ def plot_high_stress_evolution(data: pd.DataFrame) -> None:
     save_figure(fig, FIGURE_DIR / "baseline_pin_spatial_profiles_high_stress_time_evolution")
 
 
+def plot_trap_profile_for_recombination_slide(data: pd.DataFrame) -> None:
+    x = data["x"].to_numpy(dtype=float)
+    dtrap = data[column_for(data, "Dtrap", 1000)].to_numpy(dtype=float)
+    nt_eff_cm3 = data[column_for(data, "Nt_eff_lat_bulk", 1000)].to_numpy(dtype=float) / 1e6
+
+    fig, ax = plt.subplots(figsize=(5.2, 3.75))
+    ax.plot(x, nt_eff_cm3 / 1e15, lw=2.0, color="#1F77E5")
+    ax.set_xlim(float(np.nanmin(x)), float(np.nanmax(x)))
+    ax.set_xlabel("Position (nm)")
+    ax.set_ylabel(r"Trap density ($10^{15}$ cm$^{-3}$)")
+    ax.text(
+        0.04,
+        0.08,
+        "1 sun, 400 K",
+        transform=ax.transAxes,
+        ha="left",
+        va="bottom",
+        fontsize=8,
+        fontweight="bold",
+        bbox={"facecolor": "white", "edgecolor": "none", "alpha": 0.80, "pad": 1.5},
+    )
+    style_axes(ax)
+    save_figure(fig, FIGURE_DIR / "baseline_pin_trap_profile_1000h_recombination_slide")
+
+    out = pd.DataFrame(
+        {
+            "x_nm": x,
+            "Dtrap_1000h": dtrap,
+            "Nt_eff_cm3_1000h": nt_eff_cm3,
+            "case_label": "1.00 sun, 400 K",
+        }
+    )
+    TABLE_DIR.mkdir(parents=True, exist_ok=True)
+    out.to_csv(TABLE_DIR / "baseline_pin_trap_profile_1000h_recombination_slide.csv", index=False)
+
+
 def write_conservation_summary(data_by_case: dict[str, pd.DataFrame]) -> None:
     rows = []
     for label, data in data_by_case.items():
@@ -256,6 +289,7 @@ def main() -> None:
     data_by_case = load_cases()
     plot_final_profiles(data_by_case)
     plot_high_stress_evolution(data_by_case["1.00 sun, 400 K"])
+    plot_trap_profile_for_recombination_slide(data_by_case["1.00 sun, 400 K"])
     write_conservation_summary(data_by_case)
     print(f"Wrote spatial profile figures to {FIGURE_DIR}")
     print(f"Wrote spatial profile summary to {TABLE_DIR}")
