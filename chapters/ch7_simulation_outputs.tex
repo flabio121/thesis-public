@@ -1,23 +1,26 @@
 \chapter{Simulation Results and Interpretation}
 
+This chapter reports the main simulation outputs from the COMSOL model. The
+results are organized from simpler mechanism checks to broader aging and
+machine-learning analyses: accelerated degradation, electronic parameter
+sweeps, architecture-stress aging, internal-state profiles, and the lite
+surrogate baseline.
+
 \section{Data Provenance and Scope}
 
-Chapter~7 intentionally combines several COMSOL export generations because each
-one answers a different validation question. The accelerated degradation
-baseline is an earlier compact trajectory used to demonstrate coupled aging
-behavior. The electronic parameter sweep is a static sensitivity export used to
-check the direction and magnitude of terminal J--V responses. The current
-canonical light-temperature aging grid is
-\path{data/raw/comsol/arch_baseline_pin/Aging/Stress_matrix_jv_003.csv}; it is
-the source for the 360-curve stress-matrix results. Earlier stress-matrix J--V
-exports are retained only as audit history. Absolute PCE, lifetime, and
-hysteresis values should therefore be compared within each section's stated
-data source, not across these separate export protocols unless the comparison
-is explicitly identified as qualitative.
+Chapter~7 combines complementary COMSOL studies because each one answers a
+different validation question. The accelerated degradation baseline
+demonstrates coupled aging behavior. The electronic parameter sweep checks
+whether terminal J--V responses move in the expected directions when key
+electronic parameters are varied. The light-temperature aging grid provides the
+360-curve stress-matrix results used for the architecture-stress analysis.
+Absolute PCE, lifetime, and hysteresis values should be compared within each
+study's stated scope. Cross-study comparisons are used only to discuss trends,
+not to claim one shared calibration scale.
 
 \section{Accelerated Degradation Baseline}
 
-The processed COMSOL degradation export contains 12 scenarios, 11 aging times,
+The processed COMSOL degradation study contains 12 scenarios, 11 aging times,
 and 58 voltage points per scenario-time pair. The full coupled accelerated
 baseline decreases from 21.35\% PCE at 0 h to 16.51\% PCE at 3000 h. Linear
 interpolation of the processed trajectory gives $T_{90}=515$ h and
@@ -56,9 +59,9 @@ mechanism-state vector that maps into $N_t$, $R_s$, $R_{sh}$, $Q_f$, and
 surface recombination. The equations causing the change are the bounded
 degradation mappings described in Chapter~5. Physically, the curve represents
 accelerated combined degradation rather than one isolated mechanism. The J--V
-signature is a loss in extracted power over aging time. The interpretation is
-qualitative until the accelerated degradation amplitudes are calibrated to
-matched experimental stress data.
+signature is a loss in extracted power over aging time. The curve should not
+be assigned to one physical cause until the degradation amplitudes are
+calibrated to matched experimental stress data.
 
 \input{outputs/tables/comsol_lifetime_summary}
 
@@ -100,8 +103,8 @@ and independent calibration data.
 Figure~\ref{fig:comsol_state_trajectories} records the corresponding
 degradation-parameter trajectories. The figure answers what the electrical
 outputs respond to: bounded state variables map into COMSOL parameters over
-aging time. This traceability is important because PCE loss alone does not
-identify a mechanism. The limitation is that the state trajectories are
+aging time. This matters because PCE loss alone does not identify a mechanism.
+The limitation is that the state trajectories are
 simulation inputs or coupled model states, not directly measured material
 quantities unless additional experiments are used for calibration.
 
@@ -123,8 +126,8 @@ Eq.~\ref{eq:rsh_deg}, and the ionic or fixed-charge contribution to Poisson
 electrostatics. The physical interpretation is that recombination and leakage
 dominate the present terminal metrics, while charge redistribution can either
 increase or decrease extracted power depending on how it changes band bending.
-The mechanism ranking is qualitative because the amplitudes are selected for mechanism
-separation rather than calibrated material degradation.
+The mechanism ranking is a sensitivity check because the amplitudes are
+selected for mechanism separation rather than calibrated material degradation.
 
 \begin{figure}[H]
 \centering
@@ -138,18 +141,18 @@ The $N_t$ case changes $V_{oc}$, $J_{sc}$, FF, and PCE because lifetime
 reduction affects both voltage and collection. The $R_{sh}$ case is more
 fill-factor dominated because leakage changes the low-bias slope. The $Q_f$
 case has a smaller but nonzero counteracting signature because electrostatic
-charge modifies internal fields. These signatures are useful for calibration
-planning, but terminal metrics alone cannot uniquely identify all mechanisms.
+charge modifies internal fields. These signatures help define calibration
+targets, but terminal metrics alone cannot uniquely identify all mechanisms.
 
 \section{Electronic Parameter Sweep}
 
-A separate COMSOL Global Evaluation export was used to sweep the baseline
-electronic parameters $N_{t,0}$, $R_{s,0}$, and $R_{sh,0}$. Unlike the aging
-library above, this sweep is not a time-evolving degradation trajectory. It is a
-local electronic sensitivity study that checks whether the terminal J--V
-signatures respond to the expected physical parameter directions. The export
-contains 819 parameter combinations. The post-processing script extracts the
-active voltage-ramp segment from each transient scan and computes PCE,
+A separate COMSOL study was used to sweep the baseline electronic parameters
+$N_{t,0}$, $R_{s,0}$, and $R_{sh,0}$. Unlike the aging library above, this
+sweep is not a time-evolving degradation trajectory. It is a local electronic
+sensitivity study that checks whether the terminal J--V signatures respond to
+the expected physical parameter directions. The study contains 819 parameter
+combinations. The analysis extracts the active voltage-ramp segment from each
+transient scan and computes PCE,
 $V_{oc}$, $J_{sc}$, FF, $V_{\mathrm{mpp}}$, and $J_{\mathrm{mpp}}$.
 
 \begin{table}[H]
@@ -190,8 +193,8 @@ baseline values used in Table~\ref{tab:parameter_sweep_summary}.}
 \label{fig:comsol_parameter_sweep_jv}
 \end{figure}
 
-Figure~\ref{fig:comsol_parameter_sweep_jv} shows the expected qualitative
-terminal signatures. Larger $R_{s,0}$ reduces the high-power knee and lowers
+Figure~\ref{fig:comsol_parameter_sweep_jv} shows the expected terminal
+signatures. Larger $R_{s,0}$ reduces the high-power knee and lowers
 fill factor. Lower $R_{sh,0}$ increases leakage and reduces the low-bias
 quality of the curve. Larger $N_{t,0}$ reduces the achievable voltage and
 current through recombination. These trends support the interpretation of the
@@ -204,69 +207,67 @@ J--V curve to one material parameter.
 \caption{Extracted PCE, fill factor, $J_{sc}$, and $V_{oc}$ for the
 one-parameter-at-a-time COMSOL electronic sweep. The full processed table
 contains 819 all-combination rows, of which 795 remain above 15\% PCE in this
-export.}
+study.}
 \label{fig:comsol_parameter_sweep_metrics}
 \end{figure}
 
 Figure~\ref{fig:comsol_parameter_sweep_metrics} converts the J--V curves into
-scalar photovoltaic metrics. In this export, the best-performing full-factorial
+scalar photovoltaic metrics. In this sweep, the best-performing full-factorial
 grid point
 has PCE $=19.44\%$, $V_{oc}=1.163$ V, $J_{sc}=20.58~\mathrm{mA/cm^2}$, and
 FF $=0.812$. The all-combination sweep spans 13.42--19.44\% PCE. This range is
-useful for identifying plausible calibration directions and for defining
-future surrogate-model input ranges. It should not be interpreted as an
+used to identify plausible calibration directions and to define future
+surrogate-model input ranges. It should not be interpreted as an
 optimized device design because optical, transport-layer, ion, and degradation
 parameters remain fixed.
 
 \section{Architecture-Stress Aging Grid}
 
 The architecture-stress aging grid extends the thesis data set from static
-electronic parameter sweeps to architecture-scoped aging outputs. The canonical
-baseline p-i-n light-temperature J--V export stores a full diagnostic J--V
-sweep as a concatenated two-column table. The post-processing script splits
-this file into 360 J--V curves using the COMSOL parameter ordering shown in the
-export: ten aging
-checkpoints and 36 light-temperature scenarios. The scenario grid matches the
-profile-grid stress matrix, with aging temperatures of 300--400 K and aging
+electronic parameter sweeps to architecture-scoped aging outputs. The baseline
+p-i-n light-temperature study contains 360 diagnostic J--V curves: ten aging
+checkpoints across 36 light-temperature scenarios. The scenario grid matches
+the profile-grid stress matrix, with aging temperatures of 300--400 K and aging
 displayed light levels of 0--1.00 sun, where the plotted 0-sun case is the
-COMSOL 0.01-sun numerical floor. This export gives a direct electrical map of
-the light-plus-temperature degradation surface. The voltage range ends at
+small numerical illumination floor used for numerical stability. This study
+gives a direct electrical map of the light-plus-temperature degradation
+surface. The voltage range ends at
 1.25 V, so some low-temperature and early-aging curves do not cross zero
 current. PCE and $J_{sc}$ are therefore retained for all curves, while
 $V_{oc}$ and FF are reported only for curves with a resolved zero-current
-crossing. Superseded development exports are not used for the quantitative
-results in this chapter.
+crossing.
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.72\textwidth]{outputs/figures/comsol_architecture_stress_grid/baseline_pin_stress_matrix_jv_003_pce_retention_heatmap.png}
-\caption{Final PCE retention from the 360-curve light-temperature J--V export. The result shows coupled light and heat acceleration: 1000 h retention remains near 100\% at 300 K and low light, but decreases to 52.4\% at 400 K and one sun.}
+\caption{Final PCE retention from the 360-curve light-temperature J--V study. The result shows coupled light and heat acceleration: 1000 h retention remains near 100\% at 300 K and low light, but decreases to 52.4\% at 400 K and one sun.}
 \label{fig:baseline_pin_temperature_pce_retention_flat}
 \end{figure}
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=\textwidth]{outputs/figures/comsol_architecture_stress_grid/baseline_pin_stress_matrix_jv_003_jv_selected.png}
-\caption{Representative corner J--V curves from the flat light-temperature export. The high-temperature, one-sun case shows stronger $J_{sc}$ loss and knee rounding with aging, while the low-temperature cases remain close to the initial curve over the same equivalent aging window.}
+\caption{Representative corner J--V curves from the light-temperature study. The high-temperature, one-sun case shows stronger $J_{sc}$ loss and knee rounding with aging, while the low-temperature cases remain close to the initial curve over the same equivalent aging window.}
 \label{fig:baseline_pin_temperature_jv_flat}
 \end{figure}
 
 \section{Light-Temperature Internal-State Profile Grid}
 
-A separate 6 $\times$ 6 profile-grid export was organized for the baseline
-p-i-n architecture. It covers aging temperatures of 300, 320, 340, 360, 380,
-and 400 K and displayed aging light levels of 0, 0.20, 0.40, 0.60, 0.80, and
-1.00 sun. The 0-sun label corresponds to the COMSOL 0.01-sun numerical floor.
-Each file contains spatial profiles at ten aging checkpoints for
+A separate 6 $\times$ 6 profile grid was organized for the baseline p-i-n
+architecture. It covers aging temperatures of 300, 320, 340, 360, 380, and
+400 K and displayed aging light levels of 0, 0.20, 0.40, 0.60, 0.80, and
+1.00 sun. The 0-sun label corresponds to the small numerical illumination
+floor used for stability. The grid contains spatial profiles at ten aging
+checkpoints for
 $u_{\mathrm{ion}}$, $D_{\mathrm{trap}}$, $D_{Rs}$, $D_{Rsh}$,
 $N_{t,\mathrm{eff}}$, SRH recombination, and electric field. This grid is the
-first data product in the thesis that directly connects terminal J--V trends
+first structured data set in the thesis that directly connects terminal J--V trends
 to internal state variables across a light-temperature stress matrix.
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=\textwidth]{outputs/figures/comsol_architecture_stress_grid/profile_grid_final_state_summary.png}
-\caption{Final 1000 h internal-state response from the baseline p-i-n 6 $\times$ 6 light-temperature profile grid. Trap damage and effective trap density increase with both light and temperature, while the resistance-damage states are dominated mainly by the temperature axis in this export.}
+\caption{Final 1000 h internal-state response from the baseline p-i-n 6 $\times$ 6 light-temperature profile grid. Trap damage and effective trap density increase with both light and temperature, while the resistance-damage states are dominated mainly by the temperature axis in this study.}
 \label{fig:profile_grid_final_state_summary}
 \end{figure}
 
@@ -282,80 +283,37 @@ are comparatively weakly dependent on light in this parameterization. The
 maximum mobile-ion accumulation should be interpreted differently: it is a
 redistribution diagnostic controlled by electric field, thermal voltage, and
 preconditioning state, not a monotonic irreversible damage variable. This
-distinction is useful for future inverse modeling: a terminal J--V curve alone
+distinction matters for future inverse modeling: a terminal J--V curve alone
 may not separate trap growth from resistance evolution, but a COMSOL-generated
-state grid can define the physically plausible state manifold for surrogate
+state grid can define the physically allowed state space for surrogate
 training.
 
 \section{Lite COMSOL-Trained Surrogate Baseline}
 
-The validated light-temperature J--V export and profile-grid summaries also
-define the first traceable machine-learning data product in the thesis. The
-purpose of this section is limited: it tests whether the current COMSOL export
-contract can support a forward surrogate with scenario-held-out validation. It
+The validated light-temperature J--V and profile-grid summaries are also used
+for a small machine-learning (ML) test. The purpose of this section is limited:
+it tests whether the COMSOL data set can
+support a forward surrogate with scenario-held-out validation. It
 does not claim a final experimentally calibrated digital twin, and it does not
-train an inverse model from measured data. The reproducible entry point is
-\path{scripts/train_lite_surrogates.py}, which reads the processed COMSOL
-tables, encodes the stored 0.01-sun numerical floor as the displayed 0-sun
-condition, trains lightweight random-forest baselines, and writes model files,
-validation predictions, figures, tables, and metadata under
-\path{models/surrogate_lite/},
-\path{outputs/figures/surrogate_lite/}, and
-\path{outputs/tables/surrogate_lite/}.
-
-\begin{figure}[H]
-\centering
-\includegraphics[width=\textwidth]{figures/ml_surrogate/comsol_to_surrogate_workflow_concept.png}
-\caption{Conceptual COMSOL-to-ML workflow. The diagram separates raw COMSOL
-exports, canonical parsing, feature engineering, grouped validation, and
-traceable thesis artifacts. Quantitative surrogate results are generated by
-the reproducible scripts rather than by this conceptual artwork.}
-\label{fig:ml_concept_workflow}
-\end{figure}
-
-\begin{figure}[H]
-\centering
-\includegraphics[width=0.92\textwidth]{figures/ml_surrogate/aging_doe_trajectory_concept.png}
-\caption[Conceptual light-temperature-aging DOE map.]{Conceptual light-temperature-aging design-of-experiments map. The
-canonical stress matrix samples light intensity, aging temperature, and
-equivalent aging time; the high-stress trajectory is shown as the most severe
-aging path in the grid.}
-\label{fig:ml_concept_doe}
-\end{figure}
-
-\begin{figure}[H]
-\centering
-\includegraphics[width=\textwidth]{figures/ml_surrogate/forward_surrogate_architecture_concept.png}
-\caption{Conceptual forward COMSOL-trained surrogate architecture. The thesis
-trains only the forward lite surrogate; the architecture is framed as a
-traceable interpolation layer over COMSOL-generated stress-grid data.}
-\label{fig:ml_concept_forward_architecture}
-\end{figure}
-
-\begin{figure}[H]
-\centering
-\includegraphics[width=\textwidth]{figures/ml_surrogate/inverse_diagnosis_workflow_concept.png}
-\caption[Planned inverse-diagnosis workflow.]{Planned inverse-diagnosis workflow. This figure is a future-work
-roadmap: inverse latent-state inference requires broader COMSOL state labels,
-matched experimental aging data, and uncertainty-aware validation before it can
-be treated as a calibrated diagnostic model.}
-\label{fig:ml_concept_inverse_roadmap}
-\end{figure}
+train an inverse model from measured data. The surrogate analysis uses the
+processed COMSOL tables, encodes the numerical illumination floor as the
+displayed 0-sun condition, trains lightweight random-forest baselines, and
+reports validation predictions, feature importance, and error maps.
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=\textwidth]{outputs/figures/surrogate_lite/surrogate_lite_data_traceability_workflow.pdf}
 \caption{Traceable COMSOL-to-surrogate workflow for the lite ML baseline. The
-raw flat J--V and profile-grid exports are parsed into long tables, converted
-into stress, age, and voltage features, evaluated with scenario-held-out
-cross-validation, and written as auditable thesis artifacts.}
+J--V and profile-grid data are organized into long tables, converted into
+stress, age, and voltage features, and evaluated with scenario-held-out
+cross-validation.}
 \label{fig:surrogate_lite_traceability}
 \end{figure}
 
 The current ML-ready data set contains 36 light-temperature scenarios, ten
 aging checkpoints per scenario, and 48 voltage samples per J--V curve, giving
 360 diagnostic curves and 17,280 current-density points. The profile-grid
-summary contributes 2520 internal-state rows across seven exported variables.
+summary contributes 2520 internal-state rows across seven internal variables.
 The voltage sweep ends at 1.25 V, so only 115 of the 360 curves have resolved
 zero-current crossings. For this reason, $V_{oc}$ and FF are excluded from the
 lite surrogate targets until the diagnostic voltage range is extended. The
@@ -363,9 +321,9 @@ trained scalar targets are PCE, normalized PCE, PCE retention, and $J_{sc}$;
 the curve target is current density $J(V)$.
 
 The surrogate methodology follows three traceability rules. First, all feature
-columns are derived from explicit COMSOL export metadata: light intensity,
-aging temperature, equivalent aging time, and, for the curve branch, applied
-voltage. Second, data leakage is avoided by grouping validation folds by
+columns are derived from explicit simulation metadata: light intensity, aging
+temperature, equivalent aging time, and, for the curve branch, applied voltage.
+Second, data leakage is avoided by grouping validation folds by
 \texttt{scenario\_index}, so all aging checkpoints from a light-temperature
 trajectory are held out together. Third, every trained model writes its
 validation predictions, metrics, feature importances, and metadata to disk.
@@ -392,9 +350,12 @@ stress to 52.4\% at 400 K and one sun.}
 \centering
 \includegraphics[width=\textwidth]{outputs/figures/surrogate_lite/surrogate_lite_model_architecture.pdf}
 \caption{Forward surrogate architecture used for the lite baseline. Stress and
-age features feed scalar photovoltaic metric models, while stress, age, and
-voltage feed the J--V current-density model. Uncertainty, inverse diagnosis,
-and active learning remain planned calibrated extensions.}
+age features feed a direct metric branch, while stress, age, and voltage feed a
+J--V branch that predicts current density as a function of voltage. When the
+voltage window resolves the full curve, the J--V prediction can also be
+post-processed to extract photovoltaic metrics such as $J_{\mathrm{sc}}$,
+$V_{\mathrm{oc}}$, fill factor, and PCE. Uncertainty, inverse diagnosis, and
+active learning remain planned calibrated extensions.}
 \label{fig:surrogate_lite_architecture}
 \end{figure}
 
@@ -435,7 +396,7 @@ region.}
 \caption{Final-age absolute-error maps from the grouped cross-validation
 predictions. The largest PCE-retention errors occur at the highest-temperature
 edge of the stress grid, identifying where additional COMSOL simulations or a
-more structured surrogate would be most useful.}
+more structured surrogate are needed most.}
 \label{fig:surrogate_lite_error_maps}
 \end{figure}
 
@@ -443,7 +404,7 @@ more structured surrogate would be most useful.}
 \centering
 \includegraphics[width=0.86\textwidth]{outputs/figures/surrogate_lite/surrogate_lite_feature_importance.pdf}
 \caption{Random-forest feature importances for the final lite surrogate models.
-Temperature dominates the scalar degradation targets in this COMSOL export,
+Temperature dominates the scalar degradation targets in this COMSOL study,
 while voltage dominates the J--V current-density branch as expected.}
 \label{fig:surrogate_lite_feature_importance}
 \end{figure}
@@ -458,10 +419,10 @@ to replace calibrated COMSOL sweeps.}
 \label{fig:surrogate_lite_learning_curve}
 \end{figure}
 
-The ML result is therefore a useful thesis support result. It proves that the
-COMSOL exports can be converted into a reproducible surrogate-ready data set,
-that grouped validation is possible without manual relabeling, and that the
-largest residuals can be traced back to specific stress regions. The remaining
+The ML result is a support result, not a new physical claim. It shows that the
+COMSOL results can be converted into a reproducible surrogate-ready data set,
+that grouped validation is possible, and that the largest residuals can be
+traced back to specific stress regions. The remaining
 gap is calibration and breadth: future work should add more architectures,
 complete voltage windows for $V_{oc}$ and FF, repeated COMSOL samples for
 uncertainty, and matched experimental aging data before the surrogate is used
@@ -469,12 +430,10 @@ for inverse diagnosis or field prediction.
 
 \section{Current Data-Quality Gaps}
 
-The canonical light-temperature stress-matrix J--V result in this thesis is
-the baseline p-i-n 6 $\times$ 6 light-temperature export used throughout this
-chapter. Superseded development exports are retained only for audit history in
-the repository documentation and are not interpreted as parallel quantitative
-results. The current remaining data-quality limitation is the voltage range of
-the canonical export: many mild or early-aging curves do not cross zero current
+The light-temperature stress-matrix J--V result in this thesis is the baseline
+p-i-n 6 $\times$ 6 light-temperature study used throughout this chapter. The
+current remaining data-quality limitation is the voltage range of this study:
+many mild or early-aging curves do not cross zero current
 by 1.25 V. Therefore PCE and $J_{sc}$ are available for the full 360-curve
 grid, while $V_{oc}$ and FF are complete only for the subset of curves with a
 resolved zero-current crossing. A future diagnostic sweep to approximately
@@ -483,53 +442,30 @@ grid.
 
 \section{Spatial and Transient Validation Results}
 
-The selected COMSOL profile exports include the band-edge and quasi-Fermi-level
-variables needed to check the simulated internal electrostatics. The selected
-band-diagram cases in Fig.~\ref{fig:band_diagrams_selected_cases} use the
-native left-to-right COMSOL coordinate, with the HTL side on the left and the
-ETL side on the right. Energies were exported by COMSOL as joules and converted
-to electron-volts for plotting. The resulting profiles show a monotonic
-internal band-bending trend across the absorber and carrier-selective
-alignment at the transport-layer sides. These plots do not replace a full
-operating-point validation at short circuit, maximum power, and open circuit,
-but they remove the previous coordinate-direction ambiguity.
+The selected COMSOL profile results include the band-edge and quasi-Fermi-level
+variables needed to check the simulated equilibrium electrostatics. The
+dark-equilibrium result in Fig.~\ref{fig:band_diagram_dark_equilibrium_300k}
+uses the physical left-to-right coordinate, with the HTL side on the left and
+the ETL side on the right. Energies are plotted in electron-volts. This result
+is retained as an equilibrium and coordinate-convention check, not as evidence
+for degradation-driven band-shape changes.
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.76\textwidth]{outputs/figures/comsol_architecture_stress_grid/baseline_pin_band_diagram_dark_equilibrium_300K.png}
 \caption{COMSOL dark-equilibrium band diagram for the 300 K baseline device.
-This figure is generated from the dedicated equilibrium energy-level export,
-not from the low-light aging grid. The electron and hole quasi-Fermi levels
-overlap to numerical precision, as expected for a true equilibrium solution.
-The native coordinate is preserved, with the HTL on the left and the ETL on the
-right.}
+The electron and hole quasi-Fermi levels overlap to numerical precision, as
+expected for a true equilibrium solution. The physical coordinate is preserved,
+with the HTL on the left and the ETL on the right.}
 \label{fig:band_diagram_dark_equilibrium_300k}
 \end{figure}
 
-\begin{figure}[H]
-\centering
-\includegraphics[width=\textwidth]{outputs/figures/comsol_architecture_stress_grid/baseline_pin_band_diagrams_selected_cases.png}
-\caption{Selected COMSOL band diagrams from the profile-grid exports.
-The panels compare final 1000 h profiles for representative low-, medium-, and
-high-stress cases. The shaded regions identify the HTL side, perovskite
-absorber, and ETL side without reversing the exported coordinate.}
-\label{fig:band_diagrams_selected_cases}
-\end{figure}
-
-Figure~\ref{fig:band_diagrams_selected_cases} should not be read as a
-large-contrast degradation plot. The selected cases differ, but the extracted
-band-edge shifts are modest, with maximum differences on the order of
-$0.03$--$0.07$ eV across the plotted stress conditions. The figure is therefore
-most useful as a coordinate, layer-side, and quasi-Fermi-level consistency
-check; the stronger degradation contrast is carried by the terminal J--V
-metrics and the spatial damage-state profiles.
-
 The profile-grid summary in Fig.~\ref{fig:profile_grid_final_state_summary}
-establishes that the internal state variables can be exported and summarized
-across stress conditions. Figures~\ref{fig:spatial_profiles_selected_cases}
-and~\ref{fig:spatial_profiles_high_stress} use those same exports to show the
+establishes that the internal state variables can be summarized across stress
+conditions. Figures~\ref{fig:spatial_profiles_selected_cases}
+and~\ref{fig:spatial_profiles_high_stress} use those same profiles to show the
 spatial form of the ion, trap, SRH recombination, and electric-field states
-directly. These profiles support the qualitative interpretation that aging is
+directly. These profiles support the interpretation that aging is
 spatially localized near the transport-layer interfaces, with the largest
 trap-density and recombination response under combined high light and high
 temperature.
@@ -545,9 +481,9 @@ integration operator used in the model.
 light-temperature grid. The panels compare low-, medium-, and high-stress
 cases at 1000 h equivalent aging for normalized ion concentration, latent trap
 damage, SRH recombination, and electric field. HTL/ETL overlays are omitted
-because these spatial exports can be variable- or domain-selected in COMSOL,
-and the plotted profiles should not imply that perovskite-only trap variables
-are active outside the perovskite domain.}
+because some variables are solved only on selected domains, and the plotted
+profiles should not imply that perovskite-only trap variables are active
+outside the perovskite domain.}
 \label{fig:spatial_profiles_selected_cases}
 \end{figure}
 
@@ -577,7 +513,7 @@ conservation check is the integrated inventory ratio,
 evaluated with the same COMSOL integration operator and domain selection used
 by the model.
 
-The first dedicated COMSOL DIT baseline-control export is shown in
+The first dedicated COMSOL DIT baseline-control transient is shown in
 Fig.~\ref{fig:dit_baseline_control}. This dark, no-scan transient has
 \texttt{light\_on = 0} and \texttt{use\_scan = 0}. It captures the
 electronic/capacitive switching response that must be subtracted from a
@@ -585,15 +521,15 @@ mobile-ion-active pulse before integrating ionic charge. This framing follows
 the baseline-subtraction logic used in experimental ion-migration extraction
 methods such as Penukula, Estrada Torrejon, and Rolston's DIT analysis
 \cite{Penukula_2023_IonMigration}. The tail current is near zero after the
-switching transient, so the export is suitable as a background-control data
-product. It does not by itself define a final mobile-ion concentration because
+switching transient, so the result is suitable as a background-control result.
+It does not define a final mobile-ion concentration because
 the matched mobile-ion-active pulse must be processed with the same time base
 and voltage protocol.
 
 \begin{figure}[H]
 \centering
 \includegraphics[width=\textwidth]{outputs/figures/dit/dit_baseline_control.png}
-\caption{COMSOL DIT baseline-control transient from the dark, no-scan export.
+\caption{COMSOL DIT baseline-control transient from the dark, no-scan case.
 The large switching spikes define the electronic/capacitive background, while
 the post-switching tail approaches the numerical current-density floor. This
 control is the required background trace for later baseline-corrected ionic
@@ -603,15 +539,15 @@ charge integration.}
 
 The DIT governing equations and extraction methods are implemented or
 documented, but the quantitative ion-density result is not claimed as a final
-result until the matched mobile-ion-active current is exported and baseline
+result until the matched mobile-ion-active current is available and baseline
 subtracted against this control.
 
 \section{Discussion}
 
 The simulation results support the central modeling approach. The COMSOL model
 connects electronic drift-diffusion, mobile-ion redistribution, and
-degradation-state mappings in a single auditable framework. The strongest
-qualitative result is mechanism separation: trap density, shunting, contact
+degradation-state mappings in one analysis. The strongest result is mechanism
+separation: trap density, shunting, contact
 resistance, photogeneration, and ionic charge produce different J--V
 signatures. The main limitation is calibration. Stronger claims require matched
 baseline J--V data, controlled aging data, ion-sensitive measurements, and

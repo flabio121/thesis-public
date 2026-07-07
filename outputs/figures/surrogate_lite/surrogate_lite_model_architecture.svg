@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="499.377969pt" height="216.756pt" viewBox="0 0 499.377969 216.756" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-07-07T12:42:21.602016</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.9, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 216.756 
+L 499.377969 216.756 
+L 499.377969 0 
+L 0 0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 27.288 87.13062 
+L 112.104 87.13062 
+Q 121.032 87.13062 121.032 83.0835 
+L 121.032 40.58874 
+Q 121.032 36.54162 112.104 36.54162 
+L 27.288 36.54162 
+Q 18.36 36.54162 18.36 40.58874 
+L 18.36 83.0835 
+Q 18.36 87.13062 27.288 87.13062 
+z
+" clip-path="url(#p67aef632c7)" style="fill: #eaf1fe; stroke: #000000; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 27.288 162.00234 
+L 112.104 162.00234 
+Q 121.032 162.00234 121.032 157.95522 
+L 121.032 115.46046 
+Q 121.032 111.41334 112.104 111.41334 
+L 27.288 111.41334 
+Q 18.36 111.41334 18.36 115.46046 
+L 18.36 157.95522 
+Q 18.36 162.00234 27.288 162.00234 
+z
+" clip-path="url(#p67aef632c7)" style="fill: #eaf1fe; stroke: #000000; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 161.208 87.13062 
+L 246.024 87.13062 
+Q 254.952 87.13062 254.952 83.0835 
+L 254.952 40.58874 
+Q 254.952 36.54162 246.024 36.54162 
+L 161.208 36.54162 
+Q 152.28 36.54162 152.28 40.58874 
+L 152.28 83.0835 
+Q 152.28 87.13062 161.208 87.13062 
+z
+" clip-path="url(#p67aef632c7)" style="fill: #fff4c2; stroke: #000000; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 161.208 162.00234 
+L 246.024 162.00234 
+Q 254.952 162.00234 254.952 157.95522 
+L 254.952 115.46046 
+Q 254.952 111.41334 246.024 111.41334 
+L 161.208 111.41334 
+Q 152.28 111.41334 152.28 115.46046 
+L 152.28 157.95522 
+Q 152.28 162.00234 161.208 162.00234 
+z
+" clip-path="url(#p67aef632c7)" style="fill: #fff4c2; stroke: #000000; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 304.056 87.13062 
+L 406.728 87.13062 
+Q 415.656 87.13062 415.656 83.0835 
+L 415.656 40.58874 
+Q 415.656 36.54162 406.728 36.54162 
+L 304.056 36.54162 
+Q 295.128 36.54162 295.128 40.58874 
+L 295.128 83.0835 
+Q 295.128 87.13062 304.056 87.13062 
+z
+" clip-path="url(#p67aef632c7)" style="fill: #d8ecbd; stroke: #000000; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_7">
+    <path d="M 304.056 162.00234 
+L 406.728 162.00234 
+Q 415.656 162.00234 415.656 157.95522 
+L 415.656 115.46046 
+Q 415.656 111.41334 406.728 111.41334 
+L 304.056 111.41334 
+Q 295.128 111.41334 295.128 115.46046 
+L 295.128 157.95522 
+Q 295.128 162.00234 304.056 162.00234 
+z
+" clip-path="url(#p67aef632c7)" style="fill: #d8ecbd; stroke: #000000; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_8">
+    <path d="M 143.352 207.53244 
+L 424.584 207.53244 
+Q 433.512 207.53244 433.512 203.48532 
+L 433.512 175.15548 
+Q 433.512 171.10836 424.584 171.10836 
+L 143.352 171.10836 
+Q 134.424 171.10836 134.424 175.15548 
+L 134.424 203.48532 
+Q 134.424 207.53244 143.352 207.53244 
+z
+" clip-path="url(#p67aef632c7)" style="fill: #f4f5f7; stroke-dasharray: 4.44,1.92; stroke-dashoffset: 0; stroke: #000000; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_9">
+    <path d="M 117.335795 61.83612 
+Q 136.655132 61.83612 154.744632 61.83612 
+" clip-path="url(#p67aef632c7)" style="fill: none; stroke: #000000; stroke-width: 1.1; stroke-linecap: round"/>
+    <path d="M 149.944632 59.43612 
+L 154.744632 61.83612 
+L 149.944632 64.23612 
+z
+" clip-path="url(#p67aef632c7)" style="stroke: #000000; stroke-width: 1.1; stroke-linecap: round"/>
+   </g>
+   <g id="patch_10">
+    <path d="M 117.335795 136.70784 
+Q 136.655132 136.70784 154.744632 136.70784 
+" clip-path="url(#p67aef632c7)" style="fill: none; stroke: #000000; stroke-width: 1.1; stroke-linecap: round"/>
+    <path d="M 149.944632 134.30784 
+L 154.744632 136.70784 
+L 149.944632 139.10784 
+z
+" clip-path="url(#p67aef632c7)" style="stroke: #000000; stroke-width: 1.1; stroke-linecap: round"/>
+   </g>
+   <g id="patch_11">
+    <path d="M 115.871317 64.411206 
+Q 136.656093 99.272137 156.811062 133.076732 
+" clip-path="url(#p67aef632c7)" style="fill: none; stroke: #000000; stroke-width: 1.1; stroke-linecap: round"/>
+    <path d="M 156.414364 127.724851 
+L 156.811062 133.076732 
+L 152.291538 130.182961 
+z
+" clip-path="url(#p67aef632c7)" style="stroke: #000000; stroke-width: 1.1; stroke-linecap: round"/>
+   </g>
+   <g id="patch_12">
+    <path d="M 251.25416 61.83612 
+Q 275.040566 61.83612 297.597134 61.83612 
+" clip-path="url(#p67aef632c7)" style="fill: none; stroke: #000000; stroke-width: 1.1; stroke-linecap: round"/>
+    <path d="M 292.797134 59.43612 
+L 297.597134 61.83612 
+L 292.797134 64.23612 
+z
+" clip-path="url(#p67aef632c7)" style="stroke: #000000; stroke-width: 1.1; stroke-linecap: round"/>
+   </g>
+   <g id="patch_13">
+    <path d="M 251.25416 136.70784 
+Q 275.040566 136.70784 297.597134 136.70784 
+" clip-path="url(#p67aef632c7)" style="fill: none; stroke: #000000; stroke-width: 1.1; stroke-linecap: round"/>
+    <path d="M 292.797134 134.30784 
+L 297.597134 136.70784 
+L 292.797134 139.10784 
+z
+" clip-path="url(#p67aef632c7)" style="stroke: #000000; stroke-width: 1.1; stroke-linecap: round"/>
+   </g>
+   <g id="patch_14">
+    <path d="M 355.392 111.451134 
+Q 355.392 99.274239 355.392 88.327182 
+" clip-path="url(#p67aef632c7)" style="fill: none; stroke-dasharray: 4.07,1.76; stroke-dashoffset: 0; stroke: #000000; stroke-width: 1.1; stroke-linecap: round"/>
+    <path d="M 352.992 93.127182 
+L 355.392 88.327182 
+L 357.792 93.127182 
+z
+" clip-path="url(#p67aef632c7)" style="stroke-dasharray: 4.07,1.76; stroke-dashoffset: 0; stroke: #000000; stroke-width: 1.1; stroke-linecap: round"/>
+   </g>
+   <g id="patch_15">
+    <path d="M 234.864 161.968252 
+Q 234.864 168.07522 234.864 172.952351 
+" clip-path="url(#p67aef632c7)" style="fill: none; stroke-dasharray: 4.07,1.76; stroke-dashoffset: 0; stroke: #000000; stroke-width: 1.1; stroke-linecap: round"/>
+    <path d="M 237.264 168.152351 
+L 234.864 172.952351 
+L 232.464 168.152351 
+z
+" clip-path="url(#p67aef632c7)" style="stroke-dasharray: 4.07,1.76; stroke-dashoffset: 0; stroke: #000000; stroke-width: 1.1; stroke-linecap: round"/>
+   </g>
+   <g id="text_1">
+    <text style="font-weight: 700; font-size: 8px; font-family: 'Arial'; fill: #262626" transform="translate(44.357875 55.975995)">Stress inputs</text>
+    <text style="font-weight: 700; font-size: 8px; font-family: 'Arial'; fill: #262626" transform="translate(34.8035 63.85362)">light, temperature,</text>
+    <text style="font-weight: 700; font-size: 8px; font-family: 'Arial'; fill: #262626" transform="translate(62.804125 71.836245)">age</text>
+   </g>
+   <g id="text_2">
+    <text style="font-weight: 700; font-size: 8px; font-family: 'Arial'; fill: #262626" transform="translate(41.024125 130.851465)">Electrical input</text>
+    <text style="font-weight: 700; font-size: 8px; font-family: 'Arial'; fill: #262626" transform="translate(47.027875 138.72909)">voltage grid</text>
+    <text style="font-weight: 700; font-size: 8px; font-family: 'Arial'; fill: #262626" transform="translate(36.136 146.711715)">J-V scan protocol</text>
+   </g>
+   <g id="text_3">
+    <text style="font-weight: 700; font-size: 8px; font-family: 'Arial'; fill: #262626" transform="translate(164.715375 56.032245)">Direct metric branch</text>
+    <text style="font-weight: 700; font-size: 8px; font-family: 'Arial'; fill: #262626" transform="translate(176.72475 63.90987)">random forest</text>
+    <text style="font-weight: 700; font-size: 8px; font-family: 'Arial'; fill: #262626" transform="translate(180.496 71.787495)">scenario CV</text>
+   </g>
+   <g id="text_4">
+    <text style="font-weight: 700; font-size: 8px; font-family: 'Arial'; fill: #262626" transform="translate(182.945375 130.903965)">J-V branch</text>
+    <text style="font-weight: 700; font-size: 8px; font-family: 'Arial'; fill: #262626" transform="translate(176.72475 138.78159)">random forest</text>
+    <text style="font-weight: 700; font-size: 8px; font-family: 'Arial'; fill: #262626" transform="translate(180.496 146.659215)">scenario CV</text>
+   </g>
+   <g id="text_5">
+    <text style="font-weight: 700; font-size: 8px; font-family: 'Arial'; fill: #262626" transform="translate(315.16575 56.032245)">Direct metric outputs</text>
+    <text style="font-weight: 700; font-size: 8px; font-family: 'Arial'; fill: #262626" transform="translate(324.047625 63.90987)">PCE, PCE/PCE0,</text>
+    <text style="font-weight: 700; font-size: 8px; font-family: 'Arial'; fill: #262626" transform="translate(320.050125 71.787495)">PCE retention, Jsc</text>
+   </g>
+   <g id="text_6">
+    <text style="font-weight: 700; font-size: 8px; font-family: 'Arial'; fill: #262626" transform="translate(330.507 130.79409)">Curve output</text>
+    <text style="font-weight: 700; font-size: 8px; font-family: 'Arial'; fill: #262626" transform="translate(326.497625 138.671715)">current density</text>
+    <text style="font-weight: 700; font-size: 8px; font-family: 'Arial'; fill: #262626" transform="translate(347.83575 146.76159)">J(V)</text>
+   </g>
+   <g id="text_7">
+    <text style="font-weight: 700; font-size: 8px; font-family: 'Arial'; fill: #262626" transform="translate(228.18175 187.349212)">Future calibrated extensions:</text>
+    <text style="font-weight: 700; font-size: 8px; font-family: 'Arial'; fill: #262626" transform="translate(160.673625 195.334088)">uncertainty, inverse state inference, active-learning run selection</text>
+   </g>
+   <g id="text_8">
+    <text style="font-size: 6.8px; font-family: 'Arial'; fill: #404040" transform="translate(395.181 94.238917)">metric extraction</text>
+    <text style="font-size: 6.8px; font-family: 'Arial'; fill: #404040" transform="translate(406.143875 101.035624)">from J(V)</text>
+    <text style="font-size: 6.8px; font-family: 'Arial'; fill: #404040" transform="translate(385.726875 107.820855)">when scan is complete</text>
+   </g>
+   <g id="text_9">
+    <text style="font-weight: 700; font-size: 11px; font-family: 'Arial'; text-anchor: start; fill: #262626" x="25.056" y="19.34136" transform="rotate(-0 25.056 19.34136)">Lite surrogate architecture</text>
+   </g>
+   <g id="text_10">
+    <text style="font-size: 8.2px; font-family: 'Arial'; text-anchor: start; fill: #404040" x="25.056" y="28.44738" transform="rotate(-0 25.056 28.44738)">The J-V branch predicts curves; photovoltaic metrics can be extracted from J(V) when the voltage window resolves the full curve.</text>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p67aef632c7">
+   <rect x="7.2" y="7.2" width="446.4" height="202.356"/>
+  </clipPath>
+ </defs>
+</svg>

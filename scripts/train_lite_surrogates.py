@@ -657,9 +657,9 @@ def plot_model_architecture_diagram() -> None:
     ax.set_ylim(0, 1)
     draw_box(ax, (0.04, 0.62), 0.20, 0.22, "Stress inputs\nlight, temperature,\nage", fc="#EAF1FE")
     draw_box(ax, (0.04, 0.25), 0.20, 0.22, "Electrical input\nvoltage grid\nJ-V scan protocol", fc="#EAF1FE")
-    draw_box(ax, (0.34, 0.62), 0.20, 0.22, "Scalar branch\nrandom forest\nscenario CV", fc="#FFF4C2")
+    draw_box(ax, (0.34, 0.62), 0.20, 0.22, "Direct metric branch\nrandom forest\nscenario CV", fc="#FFF4C2")
     draw_box(ax, (0.34, 0.25), 0.20, 0.22, "J-V branch\nrandom forest\nscenario CV", fc="#FFF4C2")
-    draw_box(ax, (0.66, 0.62), 0.24, 0.22, "Metric outputs\nPCE, PCE/PCE0,\nPCE retention, Jsc", fc="#D8ECBD")
+    draw_box(ax, (0.66, 0.62), 0.24, 0.22, "Direct metric outputs\nPCE, PCE/PCE0,\nPCE retention, Jsc", fc="#D8ECBD")
     draw_box(ax, (0.66, 0.25), 0.24, 0.22, "Curve output\ncurrent density\nJ(V)", fc="#D8ECBD")
     draw_box(
         ax,
@@ -675,9 +675,27 @@ def plot_model_architecture_diagram() -> None:
     draw_arrow(ax, (0.24, 0.73), (0.34, 0.36))
     draw_arrow(ax, (0.54, 0.73), (0.66, 0.73))
     draw_arrow(ax, (0.54, 0.36), (0.66, 0.36))
+    draw_arrow(ax, (0.78, 0.47), (0.78, 0.62), dashed=True)
     draw_arrow(ax, (0.51, 0.25), (0.51, 0.16), dashed=True)
+    ax.text(
+        0.925,
+        0.545,
+        "metric extraction\nfrom J(V)\nwhen scan is complete",
+        fontsize=6.8,
+        ha="center",
+        va="center",
+        color="0.25",
+        linespacing=1.1,
+    )
     ax.text(0.04, 0.94, "Lite surrogate architecture", fontsize=11, fontweight="bold", ha="left")
-    ax.text(0.04, 0.895, "The current baseline is forward-only and trained on COMSOL stress-grid outputs; inverse diagnosis remains a planned extension.", fontsize=8.2, ha="left", color="0.25")
+    ax.text(
+        0.04,
+        0.895,
+        "The J-V branch predicts curves; photovoltaic metrics can be extracted from J(V) when the voltage window resolves the full curve.",
+        fontsize=8.2,
+        ha="left",
+        color="0.25",
+    )
     save_figure(fig, "surrogate_lite_model_architecture")
 
 
