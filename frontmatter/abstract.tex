@@ -1,64 +1,27 @@
 \chapter*{ABSTRACT}
+Perovskite solar cells can lose performance through mobile-ion motion,
+recombination, contact resistance, shunting, and transport-layer changes. These
+processes can produce similar current-density--voltage (J--V) curves, so
+power-conversion efficiency (PCE) shows that performance changed but not why.
+This thesis addresses that diagnostic gap by asking how a physics-based model
+can connect measured J--V evolution to hidden electronic, ionic, and degradation
+states.
 
-Perovskite solar cells are difficult to diagnose from terminal electrical
-measurements because mobile ions, recombination, transport-layer interfaces,
-contact resistance, and leakage can produce similar changes in a measured
-J--V curve. The modeling challenge is therefore not merely to reproduce the
-observed decrease in power-conversion efficiency over time. It is to build a
-device model whose
-geometry, parameters, voltage protocol, internal state variables, and outputs
-can be inspected and challenged against physical expectations.
+A one-dimensional COMSOL model is developed for the laboratory p-i-n stack,
+where p-i-n denotes a p-selective side, intrinsic absorber, and n-selective
+side. Drift-diffusion and Poisson electrostatics describe charge transport and
+internal fields, while user-defined physics describe mobile-ion redistribution
+and bounded degradation states mapped to trap density, ionic charge, series
+resistance, shunt resistance, surface recombination, and optical generation.
+Aging stress is separated from J--V measurement so slow degradation and fast
+voltage scans can be represented on different timescales.
 
-This thesis develops a COMSOL-based degradation model for perovskite solar
-cells. The electronic device physics are represented with semiconductor
-drift-diffusion and Poisson electrostatics in a one-dimensional reduction of
-the laboratory p-i-n architecture. From the illuminated side, the stack is
-\begin{equation*}
-\mathrm{glass}/\mathrm{ITO}/\mathrm{NiO}_x/
-\mathrm{MeO\mbox{-}2PACz}/\mathrm{MHP}/
-\mathrm{C}_{60}/\mathrm{BCP}/\mathrm{Ag}/
-\mathrm{UV\ resin}/\mathrm{glass}.
-\end{equation*}
-The electrical COMSOL domain
-combines NiO$_x$ and MeO-2PACz into a 35 nm hole-transport region, combines
-C$_{60}$ and BCP into a 29 nm electron-transport region, represents the
-perovskite as a 450 nm absorber, and applies ITO and Ag as electrical boundary
-contacts. Encapsulation layers are retained in the physical architecture but
-are outside the present electronic transport domain.
-Mobile-ion redistribution is implemented through a user-defined drift-diffusion
-PDE, and degradation is represented through bounded state variables that map to
-COMSOL-accessible parameters such as trap density, ionic charge, series
-resistance, shunt resistance, surface recombination, and photogeneration.
-Depth-dependent Beer--Lambert generation and preconditioned mobile-ion
-profiles are included so that optical absorption and bias-history effects enter
-the model as inspectable physical fields rather than empirical terminal
-corrections.
-
-The thesis separates slow aging from fast J--V measurement by distinguishing
-the stress voltage $V_{\mathrm{stress}}(t)$ from the scan voltage
-$V_{\mathrm{app}}(t)$. This separation supports accelerated aging studies,
-multi-rate hysteresis simulations, dark-injection-transient pulse workflows for
-mobile-ion concentration extraction, and mechanism-isolation studies. The COMSOL
-degradation library contains all-off, full coupled, one-mechanism, and
-leave-one-out cases so that the J--V signature of each degradation pathway can
-be interpreted directly.
-Additional architecture-scoped exports add a one-sun, temperature-aging J--V
-sweep and a 6 $\times$ 6 light-temperature internal-state profile grid. These
-outputs connect terminal photovoltaic metrics to spatial summaries of
-$u_{\mathrm{ion}}$, $D_{\mathrm{trap}}$, resistance damage, effective trap
-density, recombination, and electric field across controlled stress
-conditions.
-
-The experimental comparison is qualitative and is framed against multiple
-fresh and aged laboratory J--V curves rather than a single-device endpoint.
-The accelerated light-plus-heat case reproduces the direction of degradation,
-including PCE reduction, fill-factor loss, and J--V knee collapse. The current
-implementation demonstrates qualitative mechanism separation, produces
-surrogate-ready COMSOL state summaries, and provides a first grouped-validation
-surrogate baseline, but experimental calibration remains ongoing. Future work
-should improve absolute calibration, validate ion-sensitive parameters with
-frozen-ion controls, extend the diagnostic voltage window, implement
-light-soaking and self-healing terms, and develop architecture-specific
-parameter sets.
+The model is applied to mechanism-isolation cases, parameter sweeps,
+accelerated light-plus-heat aging, and light-temperature stress grids.
+Comparisons with laboratory J--V data show the main direction of degradation,
+including PCE loss, fill-factor reduction, and J--V knee collapse, while
+absolute calibration remains incomplete. This work provides a COMSOL-based
+framework for mechanism-resolved degradation analysis and future inverse
+diagnosis.
 
 \clearpage

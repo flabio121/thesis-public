@@ -8,8 +8,8 @@ Direct thesis PDF URL:
 https://raw.githubusercontent.com/flabio121/thesis-public/main/docs/Favian_Tippin_Thesis.pdf
 
 PDF file: `docs/Favian_Tippin_Thesis.pdf`
-PDF size: 13.32 MB
-PDF SHA-256: `1734f96b3e6e397b6c784f10f1024c9d429f33ac4ce7dacd7a9c79593bf08f0e`
+PDF size: 11.31 MB
+PDF SHA-256: `e9a8dc6c792b47d3236d5319c8fab61dc971572381420016ea8b970eb971e9d4`
 
 ## Public Scope
 

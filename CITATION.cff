@@ -1,12 +1,11 @@
 cff-version: 1.2.0
-title: Public Thesis Repository for Perovskite Solar Cell Degradation Modeling
-message: If you use this public thesis repository, please cite the thesis document.
-type: report
+title: Physics-Calibrated PSC Degradation Modeling Repository
+message: If you use this repository, please cite the report/manuscript and the software archive.
+type: software
 authors:
   - family-names: Tippin
     given-names: Favian
-repository-code: https://github.com/flabio121/thesis-public
-url: https://raw.githubusercontent.com/flabio121/thesis-public/main/docs/Favian_Tippin_Thesis.pdf
 abstract: >
-  Public thesis PDF and minimal rebuild source for a COMSOL-first perovskite
-  solar cell degradation modeling thesis.
+  Repository for a physics-calibrated COMSOL degradation model, a reduced-order
+  surrogate, and a manufacturing-scale-up screening use case for perovskite
+  solar cells.

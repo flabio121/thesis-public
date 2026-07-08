@@ -4,7 +4,7 @@
 
 The primary processing workflow is:
 \begin{enumerate}
-\item export COMSOL J--V and state tables to
+\item save COMSOL J--V and state tables under
 \texttt{data/raw/comsol/time\_series/};
 \item run:
 \begin{verbatim}
@@ -42,12 +42,12 @@ parameter mappings, and the experimental calibration plan.
 
 \section{Electronic Parameter-Sweep Workflow}
 
-The uploaded COMSOL Global Evaluation sweep for $N_{t,0}$, $R_{s,0}$, and
-$R_{sh,0}$ is processed separately from the aging-time pipeline:
+The COMSOL Global Evaluation sweep for $N_{t,0}$, $R_{s,0}$, and $R_{sh,0}$
+is processed separately from the aging-time pipeline:
 \begin{verbatim}
 python .\scripts\plot_comsol_parameter_sweep.py
 \end{verbatim}
-This command reads the architecture-scoped parameter-sweep export under
+This command reads the architecture-scoped parameter-sweep data under
 \path{data/raw/comsol/arch_baseline_pin/parameter_sweeps/}, extracts the active
 voltage-ramp segment for each parameter combination, computes J--V metrics, and
 writes sweep figures under
@@ -63,21 +63,20 @@ The supporting surrogate application is launched with:
 \begin{verbatim}
 streamlit run .\apps\psc_surrogate_app\streamlit_app.py
 \end{verbatim}
-The current application uses placeholder prediction logic and current COMSOL
-seed tables. Its purpose is to define the future data contract, run
-provenance, export bundle format, inverse-diagnosis interface, and
-active-learning workflow before the full COMSOL design of experiments is
-available.
+The current application uses placeholder prediction logic and COMSOL seed
+tables. Its purpose is to define the future data structure, provenance record,
+analysis bundle, inverse-diagnosis interface, and active-learning workflow
+before the full COMSOL design of experiments is available.
 
 \section{Architecture-Stress Grid Workflow}
 
-The architecture-scoped aging exports are processed with:
+The architecture-scoped aging data are processed with:
 \begin{verbatim}
 python .\scripts\process_comsol_architecture_stress_jv.py
 python .\scripts\process_comsol_profile_grid.py
 \end{verbatim}
 The first command extracts diagnostic J--V curves and PV metrics from the
-baseline p-i-n temperature-aging exports. The second command summarizes the
+baseline p-i-n temperature-aging data. The second command summarizes the
 6 $\times$ 6 light-temperature profile grid into condition-time-variable rows
 with spatial means, extrema, and interface-region summaries. The profile-grid
 summary is the current bridge between COMSOL internal states and future

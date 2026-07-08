@@ -14,13 +14,13 @@
 \usepackage{setspace}
 \doublespacing
 
-\usepackage{amsmath}
+\usepackage{amsmath}    % keep amsmath, drop amssymb to avoid \Bbbk conflict
 \usepackage{graphicx}
 \usepackage{booktabs}
 \usepackage{array}
 \usepackage{hyperref}
 \hypersetup{hypertexnames=false,hidelinks}
-\usepackage{float}
+\usepackage{float}      % enables figure/table [H]
 
 % ---- macros used throughout chapters
 \newcommand{\Dmaster}{D_{\mathrm{master}}}
@@ -42,7 +42,7 @@
 \setcounter{page}{1}
 
 \input{frontmatter/abstract}
-% Acknowledgements are omitted from this thesis scope.
+\input{frontmatter/acknowledgments}
 
 \tableofcontents
 \listoffigures
@@ -67,12 +67,16 @@
 % -------------------------
 % REFERENCES
 % -------------------------
+\clearpage
+\phantomsection
+\addcontentsline{toc}{chapter}{Bibliography}
 \bibliographystyle{ieeetr}
 \bibliography{refs}
 
 % -------------------------
 % APPENDICES
 % -------------------------
+\clearpage
 \appendix
 \input{appendices/appA_parameters}
 \input{appendices/appB_feature_mapping}

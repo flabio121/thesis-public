@@ -1,30 +1,48 @@
+# Python/cache artifacts
+.venv/
+venv/
+env/
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.cache/
+
 # LaTeX build artifacts
+build/
 *.aux
 *.bbl
+*.bcf
 *.blg
 *.fdb_latexmk
 *.fls
-*.lof
 *.log
-*.lot
 *.out
+*.run.xml
 *.synctex.gz
 *.toc
+*.lof
+*.lot
 main.pdf
 
-# Private or bulky modeling artifacts intentionally excluded
-data/
-comsol/
-models/
-*.mph
-*.mphbin
-*.pkl
-*.joblib
-*.h5
-*.zip
-*.7z
-*.rar
+# Raw and heavyweight research data
+data/raw/
+comsol/**/*.mph
+comsol/**/*.mph.lock
+comsol/**/*.mphbin
+comsol/**/*.vtu
+comsol/**/Export_test1.txt
+outputs/tables/student_folder_jv_candidate_files.csv
+models/surrogate_lite/*.pkl
 
-# OS/editor artifacts
+# Office autosave/temporary files
+~$*.docx
+~$*.pptx
+*.tmp
+
+# OS/editor noise
 .DS_Store
 Thumbs.db
+.vscode/

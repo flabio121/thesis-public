@@ -1,35 +1,201 @@
-# Public Thesis Repository
+# COMSOL-Focused PSC Degradation Modeling Repository
 
-This repository provides the public thesis PDF and the minimal source files needed to rebuild the public document.
+This repository packages the thesis/manuscript source, the COMSOL degradation
+scenario library, model-parameter tables, and generated artifacts used to study
+perovskite-solar-cell degradation through a physics-based COMSOL workflow.
+Reduced-order and surrogate-modeling artifacts are retained only as archived
+supporting context; the thesis scope is the COMSOL model.
 
-## Thesis PDF
+The project is organized around three linked contributions:
 
-Direct PDF link: [Favian_Tippin_Thesis.pdf](https://raw.githubusercontent.com/flabio121/thesis-public/main/docs/Favian_Tippin_Thesis.pdf)
+1. a physics-based COMSOL drift-diffusion degradation model tuned to mimic
+   experimentally relevant aging signatures;
+2. depth-dependent Beer-Lambert photogeneration, mobile-ion preconditioning,
+   and DIT pulse workflows for ion-sensitive model validation; and
+3. reproducible processing of COMSOL exports into J--V metrics, degradation
+   summaries, mechanism-isolation plots, and thesis figures.
 
-The QR code in `docs/qr_thesis_pdf.png` and `docs/qr_thesis_pdf.svg` points directly to that PDF URL.
+## Start Here
 
-Optional landing page: [https://flabio121.github.io/thesis-public/](https://flabio121.github.io/thesis-public/)
+- [START_HERE.md](START_HERE.md)
+- [AGENTS.md](AGENTS.md) and
+  [docs/CODEX_REPO_MEMORY.md](docs/CODEX_REPO_MEMORY.md) for persistent
+  Codex/agent memory
+- [REPRODUCIBILITY.md](REPRODUCIBILITY.md)
+- [docs/data_dictionary.md](docs/data_dictionary.md)
+- [docs/traceability_matrix.md](docs/traceability_matrix.md)
+- [docs/journal_submission_checklist.md](docs/journal_submission_checklist.md)
 
-## Included
+## Repository Layout
 
-- Final thesis PDF in `docs/Favian_Tippin_Thesis.pdf`.
-- LaTeX source files: `main.tex`, `frontmatter/`, `chapters/`, `appendices/`, and `refs.bib`.
-- Only the figure and table artifacts referenced by the thesis source.
-- Public QR code files for direct thesis access.
+- `main.tex`, `frontmatter/`, `chapters/`, `appendices/`:
+  full thesis source.
+- `journal_submission/`:
+  concise journal-style methodology-and-results manuscript.
+- `data/raw/comsol/arch_baseline_pin/time_series/`:
+  raw COMSOL JV and state exports used by the paper pipeline.
+- `data/raw/comsol/arch_baseline_pin/Aging/`:
+  architecture-scoped aging J--V exports and the light-temperature internal
+  state profile grid.
+- `data/raw/comsol/arch_baseline_pin/parameter_sweeps/`:
+  raw COMSOL electronic parameter-sweep export.
+- `data/raw/nature_energy_2026/`:
+  external literature/source-data package retained as calibration context.
+- `data/model_parameters/`:
+  COMSOL parameter CSVs used for accelerated degradation, photogeneration,
+  and model-setup studies.
+- `data/processed/comsol/`:
+  processed COMSOL scenario tables, lifetime summaries, mechanism
+  decompositions, and figure-ready outputs.
+- `src/psc_degradation/`:
+  reusable code for loading COMSOL raws, deriving J--V metrics, and generating
+  figures/tables.
+- `scripts/run_comsol_paper_pipeline.py`:
+  main reproducible entry point for the COMSOL-first paper workflow.
+- `scripts/inspect_comsol_export.py`:
+  fast inventory tool for the exported COMSOL MATLAB `.m` model.
+- `outputs/figures/` and `outputs/tables/`:
+  manuscript-ready artifacts written by the pipeline.
+  Ad-hoc COMSOL sweep figures live under
+  `outputs/figures/comsol_sweeps/`, and PAIOS/COMSOL DIT comparison figures
+  live under `outputs/figures/dit/`.
+- `models/reduced_order/` and `archive/`:
+  archived surrogate/reduced-order artifacts retained for reference, not the
+  primary thesis contribution.
+- `analysis/psc_study/` and `scripts/run_psc_degradation_study.py`:
+  legacy external-paper canonicalization workflow kept for calibration support.
 
-## Excluded
+## Quick Start
 
-This public package intentionally excludes raw COMSOL exports, `.mph` files, private lab/student-folder data, large intermediate data products, local machine paths, and model binary artifacts.
+With `uv` installed:
 
-## Rebuilding
-
-From a LaTeX environment with the required packages installed, run a normal BibTeX build sequence from the repository root:
-
-```bash
-pdflatex main
-bibtex main
-pdflatex main
-pdflatex main
+```powershell
+.\scripts\bootstrap_env.ps1
 ```
 
-The checked-in PDF is the canonical public copy for QR access.
+Or with a standard Python environment:
+
+```powershell
+python -m pip install -r requirements.txt
+```
+
+## Regenerate the COMSOL Paper Artifacts
+
+From the thesis root:
+
+```powershell
+python .\scripts\run_comsol_paper_pipeline.py
+```
+
+This regenerates:
+
+- `data/processed/comsol/comsol_scenario_timeseries.csv`
+- `data/processed/comsol/comsol_lifetime_summary.csv`
+- `data/processed/comsol/comsol_effect_decomposition.csv`
+- `data/processed/comsol/comsol_observability_summary.csv`
+
+Architecture-stress and profile-grid artifacts are regenerated with:
+
+```powershell
+python .\scripts\process_comsol_architecture_stress_jv.py
+python .\scripts\process_comsol_profile_grid.py
+```
+- `outputs/figures/comsol_*.png`
+- `outputs/tables/comsol_*.tex`
+
+Legacy reduced-order outputs may also be regenerated by older scripts, but
+they are treated as archived context unless explicitly needed for comparison.
+
+## Regenerate Ad-Hoc COMSOL Figures
+
+These scripts process the text exports in `comsol/` and write PNG, SVG, PDF,
+and summary CSV artifacts into organized figure subfolders:
+
+```powershell
+python .\scripts\plot_traps_jv.py
+python .\scripts\plot_res_jv.py
+python .\scripts\plot_ressh_jv.py
+python .\scripts\plot_dit_paios_comsol.py
+```
+
+## Inspect the COMSOL MATLAB Export
+
+To refresh a compact inventory of the current COMSOL `.m` export:
+
+```powershell
+python .\scripts\inspect_comsol_export.py --out .\docs\comsol_export_inventory.md
+```
+
+For a machine-readable inventory:
+
+```powershell
+python .\scripts\inspect_comsol_export.py --json --out .\outputs\tables\comsol_export_inventory.json
+```
+
+## Rebuild the Report
+
+After regenerating the analysis outputs:
+
+```powershell
+latexmk -pdf -interaction=nonstopmode main.tex
+```
+
+Build the concise journal manuscript separately:
+
+```powershell
+Set-Location .\journal_submission
+latexmk -pdf -interaction=nonstopmode main.tex
+```
+
+The journal manuscript intentionally contains visible placeholders for results
+that have not yet been exported from the architecture-corrected COMSOL model.
+
+## Modeling Summary
+
+The current accelerated COMSOL library contains:
+
+- `mode=0, case_id=0`: full coupled degradation baseline
+- `mode=1, case_id=0`: all-off control
+- `mode=1, case_id=1..5`: one-only mechanism signatures
+- `mode=0, case_id=1..5`: leave-one-out sensitivity studies
+
+The uploaded 2026-04-20 raw exports produce a full-coupled baseline with:
+
+- `PCE0 = 21.35%`
+- `PCE3000 = 16.51%`
+- `T90 approx. 515 h`
+- `T80 approx. 2415 h`
+
+Under the current observable set (`PCE`, `Voc`, `Jsc`, `FF`), the active
+terminal metrics alone cannot uniquely identify the internal state. The COMSOL
+workflow therefore emphasizes additional observables such as hysteresis,
+preconditioned ion profiles, DIT transients, impedance/capacitance targets, PL,
+XRD composition, and internal field profiles.
+
+## Publication and Traceability
+
+This repository is intended to be published alongside the report or a journal
+submission package. The release surface includes:
+
+- raw COMSOL exports,
+- processed COMSOL scenario tables,
+- thesis/manuscript source,
+- reproducibility instructions,
+- a data dictionary,
+- a traceability matrix, and
+- [`CITATION.cff`](CITATION.cff).
+
+## Legacy Supporting Workflows
+
+The older external-paper workflow is still available:
+
+```powershell
+python .\scripts\run_psc_degradation_study.py
+```
+
+That pipeline is now treated as supporting calibration context rather than the
+main contribution of the repo.
+
+Archived surrogate/reduced-order material remains in the repository for
+traceability. It should be cited only as future or supporting analysis after
+the COMSOL model has been experimentally calibrated.
